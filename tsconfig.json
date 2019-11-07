@@ -1,20 +1,20 @@
 {
     "compilerOptions": {
-        "module": "esnext",
-        "target": "es6",
-        "baseUrl": "/src",
+        "target": "esnext",
+        "baseUrl": "./",
+        "allowJs": true,
         "outDir": "build",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        "checkJs": false
+        "checkJs": false,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
     },
     "include": [
         "src/**/*"
-    ],
-    "exclude": [
-        "node_modules"
     ]
 }

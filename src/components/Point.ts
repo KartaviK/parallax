@@ -34,12 +34,12 @@ export default class Point {
     }
 
     public toNode(): HTMLElement {
-        let pointElement = new HTMLElement();
+        let pointElement = document.createElement('span');
         pointElement.style.position = 'absolute';
-        pointElement.style.left = this.xAxis.toString();
-        pointElement.style.top = this.yAxis.toString();
-        pointElement.style.width = '2px';
-        pointElement.style.height = '2px';
+        pointElement.style.left = `${this.xAxis.toString()}px`;
+        pointElement.style.top = `${this.yAxis.toString()}px`;
+        pointElement.style.width = '3px';
+        pointElement.style.height = '3px';
         pointElement.style.borderRadius = '50%';
         pointElement.style.backgroundColor = this._color;
 

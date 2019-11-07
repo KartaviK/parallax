@@ -8,11 +8,21 @@ export default class Visualizer {
         this.dom = document;
     }
 
+    protected root(): HTMLElement|null {
+        return this.dom.getElementById('root');
+    }
+
+    public clear() {
+        this.root().innerHTML = '';
+    }
+
     public render(space: Space) {
-        let root = this.dom.getElementById('root');
+        let root = this.root() || new HTMLElement();
 
         space.points.forEach((point: Point) => {
             root.append(point.toNode());
         });
+
+        return root;
     }
 }
