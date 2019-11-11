@@ -3,6 +3,8 @@ export default class Point {
     private _yAxis: number;
     private _color: string;
 
+    private target: HTMLElement;
+
     constructor(xAxis: number, yAxis: number, color: string) {
         this._xAxis = xAxis;
         this._yAxis = yAxis;
@@ -33,16 +35,23 @@ export default class Point {
         this._color = value;
     }
 
-    public toNode(): HTMLElement {
-        let pointElement = document.createElement('span');
-        pointElement.style.position = 'absolute';
-        pointElement.style.left = `${this.xAxis.toString()}px`;
-        pointElement.style.top = `${this.yAxis.toString()}px`;
-        pointElement.style.width = '3px';
-        pointElement.style.height = '3px';
-        pointElement.style.borderRadius = '50%';
-        pointElement.style.backgroundColor = this._color;
+    public update(): void {
+        this.target.style.left = `${this.xAxis.toString()}px`;
+        this.target.style.top = `${this.yAxis.toString()}px`;
+    }
 
-        return pointElement
+    public toNode(): HTMLElement {
+        let element = document.createElement('span');
+        element.style.position = 'absolute';
+        element.style.left = `${this.xAxis.toString()}px`;
+        element.style.top = `${this.yAxis.toString()}px`;
+        element.style.width = '3px';
+        element.style.height = '3px';
+        element.style.borderRadius = '50%';
+        element.style.backgroundColor = this._color;
+
+        this.target = element;
+
+        return element
     }
 }

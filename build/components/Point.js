@@ -22,16 +22,21 @@ export default class Point {
     set color(value) {
         this._color = value;
     }
+    update() {
+        this.target.style.left = `${this.xAxis.toString()}px`;
+        this.target.style.top = `${this.yAxis.toString()}px`;
+    }
     toNode() {
-        let pointElement = document.createElement('span');
-        pointElement.style.position = 'absolute';
-        pointElement.style.left = `${this.xAxis.toString()}px`;
-        pointElement.style.top = `${this.yAxis.toString()}px`;
-        pointElement.style.width = '3px';
-        pointElement.style.height = '3px';
-        pointElement.style.borderRadius = '50%';
-        pointElement.style.backgroundColor = this._color;
-        return pointElement;
+        let element = document.createElement('span');
+        element.style.position = 'absolute';
+        element.style.left = `${this.xAxis.toString()}px`;
+        element.style.top = `${this.yAxis.toString()}px`;
+        element.style.width = '3px';
+        element.style.height = '3px';
+        element.style.borderRadius = '50%';
+        element.style.backgroundColor = this._color;
+        this.target = element;
+        return element;
     }
 }
 //# sourceMappingURL=Point.js.map

@@ -33,7 +33,6 @@ setInterval(() => {
 
         point.xAxis = nextX;
         point.yAxis = nextY;
+        point.update();
     });
-    visualizer.clear();
-    visualizer.render(space);
 }, 2);
