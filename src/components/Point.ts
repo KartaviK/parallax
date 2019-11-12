@@ -1,4 +1,6 @@
-export default class Point {
+import IRenderable from "../interfaces/IRenderable";
+
+export default class Point implements IRenderable {
     private _xAxis: number;
     private _yAxis: number;
     private _color: string;
@@ -55,7 +57,7 @@ export default class Point {
         element.style.left = `${this.xAxis.toString()}px`;
         element.style.top = `${this.yAxis.toString()}px`;
         element.style.backgroundColor = this._color;
-        element.style.transitionDuration = `0.075s`;
+        element.style.transitionDuration = `0.5s`;
         element.style.width = `${this.radius}px`;
         element.style.height = `${this.radius}px`;
 

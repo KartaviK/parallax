@@ -1,28 +1,33 @@
-import Space from './Space';
-import Point from "./Point";
+import IRenderable from "../interfaces/IRenderable";
 
 export default class Visualizer {
     private dom: Document;
+    private readonly target: string;
 
-    constructor(document: Document) {
+    constructor(document: Document, target: string = 'root') {
         this.dom = document;
+        this.target = target;
     }
 
-    protected root(): HTMLElement|null {
-        return this.dom.getElementById('root');
+    get root(): HTMLElement | null {
+        return this.dom.getElementById(this.target);
     }
 
-    public clear() {
-        this.root().innerHTML = '';
+    public clear(): this {
+        this.root.innerHTML = '';
+
+        return this;
     }
 
-    public render(space: Space) {
-        let root = this.root() || new HTMLElement();
+    public render<T extends IRenderable>(element: T): HTMLElement {
+        let elementsToRender = element.toNode();
 
-        space.points.forEach((point: Point) => {
-            root.append(point.toNode());
-        });
+        if (elementsToRender instanceof Array) {
+            this.root.append(...elementsToRender);
+        } else {
+            this.root.append(elementsToRender);
+        }
 
-        return root;
+        return this.root;
     }
 }

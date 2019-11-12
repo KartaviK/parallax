@@ -8,5 +8,8 @@ export default class Space {
     append(point) {
         this._points.push(point);
     }
+    toNode() {
+        return this.points.map((point) => point.toNode());
+    }
 }
 //# sourceMappingURL=Space.js.map

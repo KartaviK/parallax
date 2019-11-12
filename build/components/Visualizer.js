@@ -1,19 +1,24 @@
 export default class Visualizer {
-    constructor(document) {
+    constructor(document, target = 'root') {
         this.dom = document;
+        this.target = target;
     }
-    root() {
-        return this.dom.getElementById('root');
+    get root() {
+        return this.dom.getElementById(this.target);
     }
     clear() {
-        this.root().innerHTML = '';
+        this.root.innerHTML = '';
+        return this;
     }
-    render(space) {
-        let root = this.root() || new HTMLElement();
-        space.points.forEach((point) => {
-            root.append(point.toNode());
-        });
-        return root;
+    render(element) {
+        let elementsToRender = element.toNode();
+        if (elementsToRender instanceof Array) {
+            this.root.append(...elementsToRender);
+        }
+        else {
+            this.root.append(elementsToRender);
+        }
+        return this.root;
     }
 }
 //# sourceMappingURL=Visualizer.js.map
