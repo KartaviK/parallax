@@ -1,19 +1,28 @@
-export default function (point) {
-    let nextX = point.xAxis + (Math.random() * 150) - 75;
-    let nextY = point.yAxis + (Math.random() * 150) - 75;
-    if (nextX >= window.innerWidth - 25) {
-        nextX -= 75;
+export default function (point, circle) {
+    let nextX = Math.random() * 75;
+    let nextY = Math.random() * 75;
+    let inCircle = Math.pow(point.xAxis - circle.xAxis, 2)
+        + Math.pow(point.yAxis - circle.yAxis, 2)
+        - Math.pow(circle.radius, 2) <= 0;
+    if (inCircle) {
+        point.yAxis += point.yAxis >= circle.yAxis ? nextY : -(nextY);
+        point.xAxis += point.xAxis <= circle.xAxis ? -(nextX) : nextX;
     }
-    else if (nextX <= 25) {
-        nextX += 75;
+    else {
+        point.yAxis += point.yAxis >= circle.yAxis ? -(nextY) : nextY;
+        point.xAxis += point.xAxis <= circle.xAxis ? nextX : -(nextX);
     }
-    if (nextY >= window.innerHeight - 25) {
-        nextY -= 75;
+    if (point.xAxis >= window.innerWidth - 25) {
+        point.xAxis -= 75;
     }
-    else if (nextY <= 25) {
-        nextY += 75;
+    else if (point.xAxis <= 25) {
+        point.xAxis += 75;
     }
-    point.xAxis = nextX;
-    point.yAxis = nextY;
+    if (point.yAxis >= window.innerHeight - 25) {
+        point.yAxis -= 75;
+    }
+    else if (point.yAxis <= 25) {
+        point.yAxis += 75;
+    }
 }
 //# sourceMappingURL=Chaos.js.map
