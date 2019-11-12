@@ -1,10 +1,8 @@
 export default function getRandomColor(): string {
-    let letters = '0123456789ABCDEF';
-    let hashTag = '#';
+    let red = Math.round(Math.random() * 255);
+    let green = Math.round(Math.random() * 255);
+    let blue = Math.round(Math.random() * 255);
+    let alpha = Math.random();
 
-    for (let i = 0; i < 6; i++) {
-        hashTag += letters[Math.floor(Math.random() * 16)];
-    }
-
-    return hashTag;
+    return `rgb(${red}, ${green}, ${blue}, ${alpha})`;
 }

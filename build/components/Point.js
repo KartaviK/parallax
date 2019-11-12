@@ -1,8 +1,9 @@
 export default class Point {
-    constructor(xAxis, yAxis, color) {
+    constructor(xAxis, yAxis, color, radius) {
         this._xAxis = xAxis;
         this._yAxis = yAxis;
         this._color = color;
+        this._radius = radius;
     }
     get xAxis() {
         return this._xAxis;
@@ -22,19 +23,24 @@ export default class Point {
     set color(value) {
         this._color = value;
     }
+    get radius() {
+        return this._radius;
+    }
+    set radius(value) {
+        this._radius = value;
+    }
     update() {
         this.target.style.left = `${this.xAxis.toString()}px`;
         this.target.style.top = `${this.yAxis.toString()}px`;
     }
     toNode() {
         let element = document.createElement('span');
-        element.style.position = 'absolute';
         element.style.left = `${this.xAxis.toString()}px`;
         element.style.top = `${this.yAxis.toString()}px`;
-        element.style.width = '3px';
-        element.style.height = '3px';
-        element.style.borderRadius = '50%';
         element.style.backgroundColor = this._color;
+        element.style.transitionDuration = `0.075s`;
+        element.style.width = `${this.radius}px`;
+        element.style.height = `${this.radius}px`;
         this.target = element;
         return element;
     }
