@@ -2,6 +2,7 @@ import Point from './components/Point.js';
 import Space from './components/Space.js';
 import Visualizer from "./components/Visualizer.js";
 import getRandomColor from "./functions/getRandomColor.js";
+import Chaos from "./functions/Chaos.js";
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Space();
 for (let i = 0; i < randomPointsCount; i++) {
@@ -11,25 +12,18 @@ for (let i = 0; i < randomPointsCount; i++) {
 }
 let visualizer = new Visualizer(document);
 visualizer.render(space);
-setInterval(() => {
-    space.points.forEach((point) => {
-        let nextX = point.xAxis + (Math.random() * 20) - 10;
-        let nextY = point.yAxis + (Math.random() * 20) - 10;
-        if (nextX >= window.innerWidth - 20) {
-            nextX -= 20;
-        }
-        else if (nextX <= 20) {
-            nextX += 20;
-        }
-        if (nextY >= window.innerHeight - 20) {
-            nextY -= 20;
-        }
-        else if (nextY <= 20) {
-            nextY += 20;
-        }
-        point.xAxis = nextX;
-        point.yAxis = nextY;
+let chaosHandler = () => {
+    space.points.forEach(point => {
+        Chaos(point);
         point.update();
     });
-}, 75);
+};
+let interval = setInterval(chaosHandler, 75);
+window.onclick = (e) => {
+    space.append(new Point(e.clientX, e.clientY, getRandomColor(), (Math.random() * 10) + 5));
+    visualizer.clear();
+    visualizer.render(space);
+    clearInterval(interval);
+    interval = setInterval(chaosHandler, 75);
+};
 //# sourceMappingURL=index.js.map
