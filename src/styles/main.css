@@ -10,6 +10,10 @@ body {
 #root {
     height: 100vh;
     width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
 }
 
 span {
@@ -18,9 +22,35 @@ span {
     height: 5px;
     position: absolute;
 }
-
 .slider-container {
     width: 15vh;
+}
+
+.slider-container, .effect {
+    align-items: center;
+    align-content: center;
+    padding-top: 1vh;
+    position: relative;
+    z-index: 2;
+}
+
+.effect button {
+    width: 15vh;
+    align-self: center;
+    margin: 0 auto;
+    border: none;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    background-color: darkred;
+    color: lightcyan;
+    border-radius: 1em;
+    z-index: 3;
+}
+
+.effect button:hover {
+    background-color: crimson;
+    transition-duration: .1s;
 }
 
 .slider {

@@ -1,12 +1,13 @@
-export default class Circle {
+import Figure from "../types/Figure.js";
+import Point from "./Point";
+
+export default class Circle extends Figure {
     private _radius: number;
-    private _xAxis: number;
-    private _yAxis: number;
 
     constructor(radius: number, xAxis: number, yAxis: number) {
+        super(xAxis, yAxis);
+
         this._radius = radius;
-        this._xAxis = xAxis;
-        this._yAxis = yAxis;
     }
 
     get radius(): number {
@@ -17,19 +18,25 @@ export default class Circle {
         this._radius = value;
     }
 
-    get xAxis(): number {
-        return this._xAxis;
+    isInside(point: Point): boolean {
+        return Math.pow(point.xAxis - this.xAxis, 2)
+            + Math.pow(point.yAxis - this.yAxis, 2)
+            - Math.pow(this.radius, 2) <= 0;
     }
 
-    set xAxis(value: number) {
-        this._xAxis = value;
+    isUnder(point: Point): boolean {
+        return point.yAxis <= this.yAxis;
     }
 
-    get yAxis(): number {
-        return this._yAxis;
+    isUpper(point: Point): boolean {
+        return point.yAxis >= this.yAxis;
     }
 
-    set yAxis(value: number) {
-        this._yAxis = value;
+    isOnRight(point: Point): boolean {
+        return point.xAxis >= this.xAxis;
+    }
+
+    isOnLeft(point: Point): boolean {
+        return point.xAxis <= this.xAxis;
     }
 }

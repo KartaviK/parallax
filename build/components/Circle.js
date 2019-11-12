@@ -1,8 +1,8 @@
-export default class Circle {
+import Figure from "../types/Figure.js";
+export default class Circle extends Figure {
     constructor(radius, xAxis, yAxis) {
+        super(xAxis, yAxis);
         this._radius = radius;
-        this._xAxis = xAxis;
-        this._yAxis = yAxis;
     }
     get radius() {
         return this._radius;
@@ -10,17 +10,22 @@ export default class Circle {
     set radius(value) {
         this._radius = value;
     }
-    get xAxis() {
-        return this._xAxis;
+    isInside(point) {
+        return Math.pow(point.xAxis - this.xAxis, 2)
+            + Math.pow(point.yAxis - this.yAxis, 2)
+            - Math.pow(this.radius, 2) <= 0;
     }
-    set xAxis(value) {
-        this._xAxis = value;
+    isUnder(point) {
+        return point.yAxis <= this.yAxis;
     }
-    get yAxis() {
-        return this._yAxis;
+    isUpper(point) {
+        return point.yAxis >= this.yAxis;
     }
-    set yAxis(value) {
-        this._yAxis = value;
+    isOnRight(point) {
+        return point.xAxis >= this.xAxis;
+    }
+    isOnLeft(point) {
+        return point.xAxis <= this.xAxis;
     }
 }
 //# sourceMappingURL=Circle.js.map
