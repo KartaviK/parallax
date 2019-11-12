@@ -1,4 +1,4 @@
-export default function (point, target) {
+export default function restrain(point, target) {
     if (point.xAxis >= target.innerWidth - 25) {
         point.xAxis -= 75;
     }

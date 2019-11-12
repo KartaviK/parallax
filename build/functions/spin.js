@@ -1,4 +1,4 @@
-export default function (nextX, nextY, point, figure, clockwise = true) {
+export default function spin(nextX, nextY, point, figure, clockwise = true) {
     if (figure.isOnRight(point) && figure.isUnder(point)) {
         point.yAxis += clockwise ? nextY : -nextY;
     }

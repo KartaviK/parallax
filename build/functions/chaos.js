@@ -1,4 +1,4 @@
-export default function (nextX, nextY, point, figure) {
+export default function chaos(nextX, nextY, point, figure) {
     if (figure.isInside(point)) {
         point.yAxis += figure.isUpper(point) ? nextY : -nextY;
         point.xAxis += figure.isOnLeft(point) ? -nextX : nextX;
