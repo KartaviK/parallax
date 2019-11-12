@@ -8,4 +8,4 @@ export default function (nextX, nextY, point, figure) {
         point.xAxis += figure.isOnRight(point) ? -nextX : nextX;
     }
 }
-//# sourceMappingURL=Chaos.js.map
+//# sourceMappingURL=chaos.js.map
