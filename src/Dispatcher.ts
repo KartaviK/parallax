@@ -1,4 +1,4 @@
-import IListener from "./interfaces/IListener.js";
+import IListener, {IListenerParams} from "./interfaces/IListener.js";
 import IEvent from "./interfaces/IEvent.js";
 import Point from "./components/Point.js";
 
@@ -17,7 +17,7 @@ export default class Dispatcher {
         (this._events[event] || (this._events[event] = {listeners: []})).listeners.push(callback);
     }
 
-    public dispatch(event: string, point: Point, params: any): void {
+    public dispatch(event: string, point: Point, params: IListenerParams): void {
         this._events[event].listeners.forEach((listener: IListener) => listener(point, params))
     }
 }
