@@ -4,9 +4,9 @@ import Visualizer from "./components/Visualizer.js";
 import Slider from "./components/Slider.js";
 import Circle from "./components/Circle.js";
 import getRandomColor from "./functions/getRandomColor.js";
-import chaos from "./functions/chaos.js";
-import restrain from "./functions/restrain.js";
-import spin from "./functions/spin.js";
+import Dispatcher from "./Dispatcher.js";
+import * as Listener from './components/Listener';
+import {IListenerParams} from "./interfaces/IListener";
 
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Space();
@@ -16,18 +16,42 @@ let circle = new Circle(
     Math.round(window.innerWidth / 2),
     Math.round(window.innerHeight / 2)
 );
-let spinParam = {enable: false, clockwise: true};
+let spin = {enable: false, clockwise: true};
+let chaosParams: Listener.IChaosParams = {
+    nextX: () => Math.random() * 75,
+    nextY: () => Math.random() * 75,
+    figure: () => circle
+};
+let restrainParams: Listener.IRestrainParams = {
+    window: () => window,
+};
+let spinParams: Listener.ISpinParams = {
+    spin: () => spin,
+    nextX: () => Math.random() * 75,
+    nextY: () => Math.random() * 75,
+    figure: () => circle,
+};
+let eventParams: { [event: string]: IListenerParams} = {
+    chaos: chaosParams,
+    restrain: restrainParams,
+    spin: spinParams,
+};
+let dispatcher = new Dispatcher();
+
+dispatcher.addListener('chaos', Listener.Chaos);
+dispatcher.addListener('restrain', Listener.Restrain);
+dispatcher.addListener('spin', Listener.Spin);
 
 slider.target.oninput = (() => {
     circle.radius = parseInt(slider.value);
 });
 
 document.getElementById('spin').onclick = (e: Event) => {
-    spinParam.enable = !spinParam.enable;
+    spin.enable = !spin.enable;
 };
 
 document.getElementById('reverse').onclick = (e: Event) => {
-    spinParam.clockwise = !spinParam.clockwise;
+    spin.clockwise = !spin.clockwise;
 };
 
 for (let i = 0; i < randomPointsCount; i++) {
@@ -40,17 +64,15 @@ for (let i = 0; i < randomPointsCount; i++) {
 let visualizer = new Visualizer(document);
 visualizer.render(space);
 
-let chaosHandler = () => {
+let updateHandler = () => {
     space.points.forEach(point => {
-        chaos(Math.random() * 75, Math.random() * 75, point, circle);
-        spinParam.enable && spin(Math.random() * 75, Math.random() * 75, point, circle, spinParam.clockwise);
-        restrain(point, window);
+        Object.keys(eventParams).forEach(event => dispatcher.dispatch(event, point, eventParams[event]));
 
         point.update();
     });
 };
 
-let interval = setInterval(chaosHandler, 100);
+setInterval(updateHandler, 100);
 
 visualizer.root.onwheel = (e: WheelEvent) => {
     let value = Math.ceil(parseInt(slider.target.value) + e.deltaY);
@@ -62,11 +84,9 @@ visualizer.root.onwheel = (e: WheelEvent) => {
 };
 visualizer.root.onclick = (e: MouseEvent) => {
     let point = new Point(e.clientX, e.clientY, getRandomColor(), (Math.random() * 10) + 5);
+
     space.append(point);
     visualizer.render(point);
-
-    clearInterval(interval);
-    interval = setInterval(chaosHandler, 100);
 };
 
 window.onmousemove = (e: MouseEvent) => {
