@@ -5,7 +5,7 @@ import Slider from "./components/Slider.js";
 import Circle from "./components/Circle.js";
 import getRandomColor from "./functions/getRandomColor.js";
 import Dispatcher from "./Dispatcher.js";
-import * as Listener from './components/Listener';
+import * as Listener from './components/Listener.js';
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Space();
 let slider = new Slider('radius');
