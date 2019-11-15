@@ -2,6 +2,7 @@ import Dispatcher from "./Dispatcher.js";
 import randomInteger from './functions/randomInteger.js';
 import * as Component from './components/index.js';
 import * as Listener from './components/Listener/index.js';
+import gravity from "./functions/gravity.js";
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Component.Space();
 let slider = new Component.Slider('radius');
@@ -34,11 +35,23 @@ dispatcher.addListener('spin', Listener.Spin);
 slider.target.oninput = (() => {
     circle.radius = parseInt(slider.value);
 });
-document.getElementById('spin').onclick = (e) => {
+document.getElementById('spin').onclick = () => {
     spin.enable = !spin.enable;
 };
-document.getElementById('reverse').onclick = (e) => {
+document.getElementById('reverse').onclick = () => {
     spin.clockwise = !spin.clockwise;
+};
+let chaoticButton = document.getElementById('chaotic');
+chaoticButton.onclick = () => {
+    let use = chaoticButton.dataset['use'] === '1';
+    chaoticButton.innerText = use ? 'chaotic' : 'static';
+    chaoticButton.dataset['use'] = use ? '0' : '1';
+    if (use) {
+        dispatcher.addListener('chaos', Listener.Chaos);
+    }
+    else {
+        dispatcher.removeListener('chaos');
+    }
 };
 for (let i = 0; i < randomPointsCount; i++) {
     let xAxis = (Math.random() * (window.innerWidth - 20)) + 10;
@@ -53,6 +66,7 @@ visualizer.render(space);
 let updateHandler = () => {
     space.points.forEach(point => {
         Object.keys(eventParams).forEach(event => dispatcher.dispatch(event, point, eventParams[event]));
+        gravity(point, point.xAxis, window.innerHeight, 1);
         point.update();
     });
 };
