@@ -1,1 +1,1 @@
-//# sourceMappingURL=IFigure.js.map
+//# sourceMappingURL=Figure.js.map

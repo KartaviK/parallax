@@ -1,3 +1,3 @@
-export default interface IRenderable {
+export default interface Renderable {
     toNode(): HTMLElement | HTMLElement[];
 }

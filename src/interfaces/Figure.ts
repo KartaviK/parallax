@@ -1,6 +1,6 @@
 import Point from "../components/Point.js";
 
-export default interface IFigure {
+export interface Figure {
     isInside(point: Point): boolean;
 
     isUnder(point: Point): boolean;

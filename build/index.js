@@ -1,15 +1,12 @@
-import Point from './components/Point.js';
-import Space from './components/Space.js';
-import Visualizer from "./components/Visualizer.js";
-import Slider from "./components/Slider.js";
-import Circle from "./components/Circle.js";
-import getRandomColor from "./functions/getRandomColor.js";
 import Dispatcher from "./Dispatcher.js";
+import randomInteger from './functions/randomInteger.js';
+import * as Component from './components/index.js';
 import * as Listener from './components/Listener/index.js';
 let randomPointsCount = Math.round(Math.random() * 50);
-let space = new Space();
-let slider = new Slider('radius');
-let circle = new Circle(100, Math.round(window.innerWidth / 2), Math.round(window.innerHeight / 2));
+let space = new Component.Space();
+let slider = new Component.Slider('radius');
+let circle = new Component.Circle(100, Math.round(window.innerWidth / 2), Math.round(window.innerHeight / 2));
+let colorExtractor = new Component.ColorExtractor(randomInteger);
 let spin = { enable: false, clockwise: true };
 let chaosParams = {
     nextX: () => Math.random() * 75,
@@ -44,11 +41,14 @@ document.getElementById('reverse').onclick = (e) => {
     spin.clockwise = !spin.clockwise;
 };
 for (let i = 0; i < randomPointsCount; i++) {
-    let xAxisRandom = (Math.random() * (window.innerWidth - 20)) + 10;
-    let yAxisRandom = (Math.random() * (window.innerHeight - 20)) + 10;
-    space.append(new Point(xAxisRandom, yAxisRandom, getRandomColor(), (Math.random() * 15) + 1));
+    let xAxis = (Math.random() * (window.innerWidth - 20)) + 10;
+    let yAxis = (Math.random() * (window.innerHeight - 20)) + 10;
+    let color = colorExtractor.rgba();
+    let radius = (Math.random() * 15) + 1;
+    let point = new Component.Point(xAxis, yAxis, color, radius);
+    space.append(point);
 }
-let visualizer = new Visualizer(document);
+let visualizer = new Component.Visualizer(document);
 visualizer.render(space);
 let updateHandler = () => {
     space.points.forEach(point => {
@@ -65,7 +65,11 @@ visualizer.root.onwheel = (e) => {
     }
 };
 visualizer.root.onclick = (e) => {
-    let point = new Point(e.clientX, e.clientY, getRandomColor(), (Math.random() * 10) + 5);
+    let xAxis = e.clientX;
+    let yAxis = e.clientY;
+    let color = colorExtractor.rgba();
+    let radius = (Math.random() * 10) + 5;
+    let point = new Component.Point(xAxis, yAxis, color, radius);
     space.append(point);
     visualizer.render(point);
 };
