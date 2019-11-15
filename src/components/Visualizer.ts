@@ -1,4 +1,4 @@
-import IRenderable from "../interfaces/IRenderable";
+import Renderable from "../interfaces/Renderable";
 
 export default class Visualizer {
     private dom: Document;
@@ -19,7 +19,7 @@ export default class Visualizer {
         return this;
     }
 
-    public render<T extends IRenderable>(element: T): HTMLElement {
+    public render<T extends Renderable>(element: T): HTMLElement {
         let elementsToRender = element.toNode();
 
         if (elementsToRender instanceof Array) {
