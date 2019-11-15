@@ -5,8 +5,8 @@ import Slider from "./components/Slider.js";
 import Circle from "./components/Circle.js";
 import getRandomColor from "./functions/getRandomColor.js";
 import Dispatcher from "./Dispatcher.js";
-import * as Listener from './components/Listener';
-import {IListenerParams} from "./interfaces/IListener";
+import * as Listener from './components/Listener.js';
+import {IListenerParams} from "./interfaces/IListener.js";
 
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Space();
