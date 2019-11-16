@@ -1,5 +1,5 @@
-import Point from "./Point.js";
-import Renderable from "../interfaces/Renderable.js";
+import Point from "./Point";
+import Renderable from "../interfaces/Renderable";
 
 export default class Space implements Renderable {
     private _points: Point[];

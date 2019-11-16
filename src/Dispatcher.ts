@@ -1,6 +1,6 @@
-import {Listener, ListenerParams} from "./interfaces/Listener.js";
-import DispatcherEvent from "./interfaces/DispatcherEvent.js";
-import Point from "./components/Point.js";
+import {Listener, ListenerParams} from "./interfaces/Listener";
+import DispatcherEvent from "./interfaces/DispatcherEvent";
+import Point from "./components/Point";
 
 export interface IEventList {
     [key: string]: DispatcherEvent,
@@ -23,7 +23,7 @@ export default class Dispatcher {
 
     public dispatch(event: string, point: Point, params: ListenerParams): void {
         this._events.hasOwnProperty(event) && this._events[event].listeners.forEach((listener: Listener) => {
-            listener(point, params)
+            listener(point, params);
         });
     }
 }

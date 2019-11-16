@@ -1,7 +1,7 @@
-import {Listener, ListenerParams} from "../../interfaces/Listener.js";
-import Figure from "../../types/Figure.js";
-import Point from "../Point.js";
-import spin from "../../functions/spin.js";
+import {Listener, ListenerParams} from "../../interfaces/Listener";
+import Figure from "../../types/Figure";
+import Point from "../Point";
+import spin from "../../functions/spin";
 
 export interface ISpinParams extends ListenerParams {
     spin: () => {enable: boolean, clockwise: boolean};

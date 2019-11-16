@@ -1,10 +1,10 @@
-import * as Listener from './Listener/index.js';
-import Circle from './Circle.js';
-import ColorExtractor from './ColorExtractor.js';
-import Point from './Point.js';
-import Slider from './Slider.js';
-import Space from './Space.js';
-import Visualizer from './Visualizer.js';
+import * as Listener from './Listener/index';
+import Circle from './Circle';
+import ColorExtractor from './ColorExtractor';
+import Point from './Point';
+import Slider from './Slider';
+import Space from './Space';
+import Visualizer from './Visualizer';
 
 export {
     Listener,

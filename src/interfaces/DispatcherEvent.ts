@@ -1,4 +1,4 @@
-import {Listener} from "./Listener.js";
+import {Listener} from "./Listener";
 
 export default interface DispatcherEvent {
     listeners: Listener[];

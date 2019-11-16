@@ -1,4 +1,4 @@
-import Point from "../components/Point.js";
+import Point from "../components/Point";
 
 export interface Figure {
     isInside(point: Point): boolean;

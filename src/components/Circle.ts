@@ -1,4 +1,4 @@
-import Figure from "../types/Figure.js";
+import Figure from "../types/Figure";
 import Point from "./Point";
 
 export default class Circle extends Figure {

@@ -1,6 +1,6 @@
-import {Listener, ListenerParams} from "../../interfaces/Listener.js";
-import Point from "../Point.js";
-import restrain from "../../functions/restrain.js";
+import {Listener, ListenerParams} from "../../interfaces/Listener";
+import Point from "../Point";
+import restrain from "../../functions/restrain";
 
 export interface IRestrainParams extends ListenerParams {
     window: () => Window;

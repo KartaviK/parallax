@@ -1,5 +1,5 @@
-import Point from "../components/Point.js";
-import Figure from "../types/Figure.js";
+import Point from "../components/Point";
+import Figure from "../types/Figure";
 
 export default function chaos(nextX: number, nextY: number, point: Point, figure: Figure): void {
     if (figure.isInside(point)) {

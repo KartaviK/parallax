@@ -1,13 +1,17 @@
 {
     "compilerOptions": {
+        "baseUrl": "./src",
         "target": "esnext",
-        "baseUrl": "./",
+        "module": "esnext",
         "allowJs": true,
         "outDir": "build",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
         "sourceMap": true,
         "checkJs": false,
         "typeRoots": [
@@ -16,5 +20,8 @@
     },
     "include": [
         "src/**/*"
+    ],
+    "exclude": [
+        "./node_modules/**/*"
     ]
 }

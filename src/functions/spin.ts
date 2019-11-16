@@ -1,4 +1,4 @@
-import Point from "../components/Point.js";
+import Point from "../components/Point";
 import Figure from "../types/Figure";
 
 export default function spin(

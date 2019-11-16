@@ -1,4 +1,4 @@
-import Point from "../components/Point.js";
+import Point from "../components/Point";
 
 export default function restrain(point: Point, target: Window) {
     if (point.xAxis > target.innerWidth - point.radius * 2) {

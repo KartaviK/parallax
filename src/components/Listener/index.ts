@@ -1,6 +1,6 @@
-import {Chaos, IChaosParams} from './Chaos.js';
-import {Restrain, IRestrainParams} from './Restrain.js';
-import {Spin, ISpinParams} from './Spin.js';
+import {Chaos, IChaosParams} from './Chaos';
+import {Restrain, IRestrainParams} from './Restrain';
+import {Spin, ISpinParams} from './Spin';
 
 export {
     Chaos,

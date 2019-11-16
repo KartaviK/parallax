@@ -1,9 +1,12 @@
-import Dispatcher from "./Dispatcher.js";
-import randomInteger from './functions/randomInteger.js';
+import Dispatcher from "./Dispatcher";
+import randomInteger from './functions/randomInteger';
 import {ListenerParams} from "./interfaces/Listener";
-import * as Component from './components/index.js';
-import * as Listener from './components/Listener/index.js';
-import gravity from "./functions/gravity.js";
+import * as Component from './components/index';
+import * as Listener from './components/Listener/index';
+import gravity from "./functions/gravity";
+
+import './styles/main.css';
+import './styles/reset.css';
 
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Component.Space();
@@ -88,7 +91,7 @@ let updateHandler = () => {
     });
 };
 
-setInterval(updateHandler, 180);
+setInterval(updateHandler, 120);
 
 visualizer.root.onwheel = (e: WheelEvent) => {
     let value = Math.ceil(parseInt(slider.target.value) + e.deltaY);

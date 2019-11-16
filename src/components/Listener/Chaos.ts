@@ -1,7 +1,7 @@
-import {Listener, ListenerParams} from "../../interfaces/Listener.js";
-import Point from "../Point.js";
-import Figure from "../../types/Figure.js";
-import chaos from "../../functions/chaos.js";
+import {Listener, ListenerParams} from "../../interfaces/Listener";
+import Point from "../Point";
+import Figure from "../../types/Figure";
+import chaos from "../../functions/chaos";
 
 export interface IChaosParams extends ListenerParams {
     nextX: () => number;

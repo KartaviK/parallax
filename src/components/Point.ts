@@ -66,7 +66,7 @@ export default class Point implements Renderable {
         element.style.left = `${this.xAxis}px`;
         element.style.top = `${this.yAxis}px`;
         element.style.backgroundColor = this._color;
-        element.style.transitionDuration = '0.5s';
+        element.style.transitionDuration = '0.4s';
         element.style.width = `${this.radius * 2}px`;
         element.style.height = `${this.radius * 2}px`;
 
