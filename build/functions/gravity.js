@@ -1,4 +1,4 @@
-export const acceleration = 9.81;
+export const acceleration = 9.80665;
 export default function gravity(point, targetXAxis, targetYAxis, time, iteration = 1) {
     let targetDistance = Math.sqrt(Math.pow(targetXAxis - point.xAxis, 2)
         + Math.pow(targetYAxis - point.yAxis, 2));
@@ -7,6 +7,7 @@ export default function gravity(point, targetXAxis, targetYAxis, time, iteration
     if (targetDistance - traveledDistance <= 0) {
         point.xAxis = targetXAxis;
         point.yAxis = targetYAxis;
+        point.gravitationTime = 1;
         return;
     }
     let traveledPartRatio = traveledDistance / targetDistance;

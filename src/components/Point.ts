@@ -5,6 +5,7 @@ export default class Point implements Renderable {
     private _yAxis: number;
     private _color: string;
     private _radius: number;
+    private _gravitationTime: number = 1;
 
     private target: HTMLElement;
 
@@ -47,19 +48,27 @@ export default class Point implements Renderable {
         this._radius = value;
     }
 
+    get gravitationTime(): number {
+        return this._gravitationTime;
+    }
+
+    set gravitationTime(value: number) {
+        this._gravitationTime = value;
+    }
+
     public update(): void {
-        this.target.style.left = `${this.xAxis.toString()}px`;
-        this.target.style.top = `${this.yAxis.toString()}px`;
+        this.target.style.left = `${this.xAxis}px`;
+        this.target.style.top = `${this.yAxis}px`;
     }
 
     public toNode(): HTMLElement {
         let element = document.createElement('span');
-        element.style.left = `${this.xAxis.toString()}px`;
-        element.style.top = `${this.yAxis.toString()}px`;
+        element.style.left = `${this.xAxis}px`;
+        element.style.top = `${this.yAxis}px`;
         element.style.backgroundColor = this._color;
-        element.style.transitionDuration = `0.5s`;
-        element.style.width = `${this.radius}px`;
-        element.style.height = `${this.radius}px`;
+        element.style.transitionDuration = '0.5s';
+        element.style.width = `${this.radius * 2}px`;
+        element.style.height = `${this.radius * 2}px`;
 
         this.target = element;
 

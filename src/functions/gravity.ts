@@ -1,6 +1,6 @@
 import Point from "../components/Point.js";
 
-export const acceleration: number = 9.81;
+export const acceleration: number = 9.80665;
 
 export default function gravity(
     point: Point,
@@ -20,6 +20,7 @@ export default function gravity(
     if (targetDistance - traveledDistance <= 0) {
         point.xAxis = targetXAxis;
         point.yAxis = targetYAxis;
+        point.gravitationTime = 1;
 
         return;
     }

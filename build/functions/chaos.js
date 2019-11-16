@@ -7,5 +7,6 @@ export default function chaos(nextX, nextY, point, figure) {
         point.yAxis += figure.isUnder(point) ? nextY : -nextY;
         point.xAxis += figure.isOnRight(point) ? -nextX : nextX;
     }
+    point.gravitationTime = 1;
 }
 //# sourceMappingURL=chaos.js.map

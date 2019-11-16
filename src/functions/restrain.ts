@@ -1,14 +1,14 @@
 import Point from "../components/Point.js";
 
 export default function restrain(point: Point, target: Window) {
-    if (point.xAxis >= target.innerWidth - 25) {
-        point.xAxis -= 75;
-    } else if (point.xAxis <= 25) {
-        point.xAxis += 75;
+    if (point.xAxis > target.innerWidth - point.radius * 2) {
+        point.xAxis = target.innerWidth - point.radius * 2;
+    } else if (point.xAxis <= point.radius * 2) {
+        point.xAxis = point.radius * 2;
     }
-    if (point.yAxis >= target.innerHeight - 25) {
-        point.yAxis -= 75;
-    } else if (point.yAxis <= 25) {
-        point.yAxis += 75;
+    if (point.yAxis > target.innerHeight - point.radius * 2) {
+        point.yAxis = target.innerHeight - point.radius * 2;
+    } else if (point.yAxis <= point.radius * 2) {
+        point.yAxis = point.radius * 2;
     }
 }

@@ -9,4 +9,5 @@ export default function chaos(nextX: number, nextY: number, point: Point, figure
         point.yAxis += figure.isUnder(point) ? nextY : -nextY;
         point.xAxis += figure.isOnRight(point) ? -nextX : nextX;
     }
+    point.gravitationTime = 1;
 }

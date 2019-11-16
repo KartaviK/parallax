@@ -1,6 +1,6 @@
 import Dispatcher from "./Dispatcher.js";
 import randomInteger from './functions/randomInteger.js';
-import {ListenerParams} from "./interfaces/Listener.js";
+import {ListenerParams} from "./interfaces/Listener";
 import * as Component from './components/index.js';
 import * as Listener from './components/Listener/index.js';
 import gravity from "./functions/gravity.js";
@@ -70,7 +70,7 @@ for (let i = 0; i < randomPointsCount; i++) {
     let xAxis = (Math.random() * (window.innerWidth - 20)) + 10;
     let yAxis = (Math.random() * (window.innerHeight - 20)) + 10;
     let color = colorExtractor.rgba();
-    let radius = (Math.random() * 15) + 1;
+    let radius = Math.round((Math.random() * 15) + 1);
     let point = new Component.Point(xAxis, yAxis, color, radius);
 
     space.append(point);
@@ -81,15 +81,14 @@ visualizer.render(space);
 
 let updateHandler = () => {
     space.points.forEach(point => {
+        gravity(point, point.xAxis, window.innerHeight - point.radius, point.gravitationTime++);
         Object.keys(eventParams).forEach(event => dispatcher.dispatch(event, point, eventParams[event]));
-
-        gravity(point, point.xAxis, window.innerHeight, 1);
 
         point.update();
     });
 };
 
-setInterval(updateHandler, 100);
+setInterval(updateHandler, 180);
 
 visualizer.root.onwheel = (e: WheelEvent) => {
     let value = Math.ceil(parseInt(slider.target.value) + e.deltaY);
