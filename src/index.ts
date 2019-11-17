@@ -3,8 +3,8 @@ import * as Component from './app/Component';
 import ColorExtractor from "./app/Helper/ColorExtractor";
 import gravity from "./app/Action/gravity";
 
-import './Style/main.css';
-import './Style/reset.min.css';
+import './styles/main.css';
+import './styles/reset.min.css';
 import {IChaosParams} from "./app/Component/Listener";
 
 let randomPointsCount = Math.round(Math.random() * 50);
