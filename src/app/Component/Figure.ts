@@ -1,7 +1,7 @@
-import * as AbstractType from "../interfaces/Figure";
-import Point from "../components/Point";
+import IFigure from "./IFigure";
+import Point from "./Point";
 
-export default abstract class Figure implements AbstractType.Figure {
+export default abstract class Figure implements IFigure {
     private _xAxis: number;
     private _yAxis: number;
 

@@ -1,6 +1,6 @@
-import Renderable from "../interfaces/Renderable";
+import IRenderable from "./IRenderable";
 
-export default class Point implements Renderable {
+export default class Point implements IRenderable {
     private _xAxis: number;
     private _yAxis: number;
     private _color: string;

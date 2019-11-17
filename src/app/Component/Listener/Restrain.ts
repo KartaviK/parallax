@@ -1,6 +1,13 @@
-import Point from "../components/Point";
+import * as Component from '../';
 
-export default function restrain(point: Point, target: Window) {
+export interface IRestrainParams extends Component.IListenerParams {
+    window: () => Window;
+}
+
+export const Restrain: Component.IListener = (point: Component.Point, params: IRestrainParams): void => {
+    let {window: wn} = params;
+    let target = wn();
+
     if (point.xAxis > target.innerWidth - point.radius * 2) {
         point.xAxis = target.innerWidth - point.radius * 2;
     } else if (point.xAxis <= point.radius * 2) {
@@ -11,4 +18,4 @@ export default function restrain(point: Point, target: Window) {
     } else if (point.yAxis <= point.radius * 2) {
         point.yAxis = point.radius * 2;
     }
-}
+};

@@ -4,6 +4,20 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     entry: './index.ts',
     context: path.join(__dirname, 'src'),
+    devServer: {
+        host: 'localhost',
+        publicPath: "/",
+        contentBase: "./build",
+        watchContentBase: true,
+        noInfo: false,
+        hot: true,
+        inline: true,
+        historyApiFallback: true,
+        port: 8087,
+        stats: {
+            colors: true
+        }
+    },
     output: {
         path: path.join(__dirname, "./"),
         filename: "bundle.js",
@@ -16,7 +30,7 @@ module.exports = {
         alias: {
             '~': path.resolve('./src'),
         },
-        extensions: ['.ts'],
+        extensions: ['.js', '.ts',],
     },
     module: {
         rules: [
@@ -28,14 +42,17 @@ module.exports = {
                 ],
             },
             {
+                test: /\.(js|jsx|es6)$/,
+                exclude: /(node_modules|bower_components)/,
+                use: 'babel-loader',
+            },
+            {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]
             },
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./templates/index.html",
-        }),
+        new HtmlWebpackPlugin({template: "./templates/index.html",}),
     ],
 };

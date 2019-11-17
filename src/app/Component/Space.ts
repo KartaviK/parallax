@@ -1,7 +1,7 @@
 import Point from "./Point";
-import Renderable from "../interfaces/Renderable";
+import IRenderable from "./IRenderable";
 
-export default class Space implements Renderable {
+export default class Space implements IRenderable {
     private _points: Point[];
 
     constructor(points: Point[] = []) {

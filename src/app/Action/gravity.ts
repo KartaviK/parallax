@@ -1,4 +1,4 @@
-import Point from "../components/Point";
+import Point from "../Component/Point";
 
 export const acceleration: number = 9.80665;
 
