@@ -1,6 +1,6 @@
-import Point from "../components/Point";
+import Point from "./Point";
 
-export interface Figure {
+export default interface IFigure {
     isInside(point: Point): boolean;
 
     isUnder(point: Point): boolean;

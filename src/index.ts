@@ -1,12 +1,11 @@
-import Dispatcher from "./Dispatcher";
-import randomInteger from './functions/randomInteger';
-import {ListenerParams} from "./interfaces/Listener";
-import * as Component from './components/index';
-import * as Listener from './components/Listener/index';
-import gravity from "./functions/gravity";
+import Random from "./app/Helper/Random";
+import * as Component from './app/Component';
+import ColorExtractor from "./app/Helper/ColorExtractor";
+import gravity from "./app/Action/gravity";
 
 import './styles/main.css';
-import './styles/reset.css';
+import './styles/reset.min.css';
+import {IChaosParams} from "./app/Component/Listener";
 
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Component.Space();
@@ -16,32 +15,32 @@ let circle = new Component.Circle(
     Math.round(window.innerWidth / 2),
     Math.round(window.innerHeight / 2)
 );
-let colorExtractor = new Component.ColorExtractor(randomInteger);
+let colorExtractor = new ColorExtractor(Random.number);
 let spin = {enable: false, clockwise: true};
-let chaosParams: Listener.IChaosParams = {
+let chaosParams: IChaosParams = {
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
     figure: () => circle
 };
-let restrainParams: Listener.IRestrainParams = {
+let restrainParams: Component.Listener.IRestrainParams = {
     window: () => window,
 };
-let spinParams: Listener.ISpinParams = {
+let spinParams: Component.Listener.ISpinParams = {
     spin: () => spin,
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
     figure: () => circle,
 };
-let eventParams: { [event: string]: ListenerParams} = {
+let eventParams: { [event: string]: Component.IListenerParams} = {
     chaos: chaosParams,
     restrain: restrainParams,
     spin: spinParams,
 };
-let dispatcher = new Dispatcher();
+let dispatcher = new Component.Dispatcher();
 
-dispatcher.addListener('chaos', Listener.Chaos);
-dispatcher.addListener('restrain', Listener.Restrain);
-dispatcher.addListener('spin', Listener.Spin);
+dispatcher.addListener('chaos', Component.Listener.Chaos);
+dispatcher.addListener('restrain', Component.Listener.Restrain);
+dispatcher.addListener('spin', Component.Listener.Spin);
 
 slider.target.oninput = (() => {
     circle.radius = parseInt(slider.value);
@@ -63,7 +62,7 @@ chaoticButton.onclick = () => {
     chaoticButton.dataset['use'] = use ? '0' : '1';
 
     if (use) {
-        dispatcher.addListener('chaos', Listener.Chaos);
+        dispatcher.addListener('chaos', Component.Listener.Chaos);
     } else {
         dispatcher.removeListener('chaos');
     }

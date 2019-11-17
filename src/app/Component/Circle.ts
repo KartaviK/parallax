@@ -1,4 +1,4 @@
-import Figure from "../types/Figure";
+import Figure from "./Figure";
 import Point from "./Point";
 
 export default class Circle extends Figure {
