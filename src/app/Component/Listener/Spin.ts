@@ -13,18 +13,22 @@ export const Spin: Component.IListener = (point: Component.Point, params: ISpinP
     let x = nextX();
     let y = nextY();
     let target = figure();
-    let clockwise = spin().clockwise;
+    let spinData = spin();
+
+    if (!spinData.enable) {
+        return;
+    }
 
     if (target.isOnRight(point) && target.isUnder(point)) {
-        point.yAxis += clockwise ? y : -y;
+        point.yAxis += spinData.clockwise ? y : -y;
     }
     if (target.isOnRight(point) && target.isUpper(point)) {
-        point.xAxis -= clockwise ? x : -x;
+        point.xAxis -= spinData.clockwise ? x : -x;
     }
     if (target.isOnLeft(point) && target.isUpper(point)) {
-        point.yAxis -= clockwise ? y : -y;
+        point.yAxis -= spinData.clockwise ? y : -y;
     }
     if (target.isOnLeft(point) && target.isUnder(point)) {
-        point.xAxis += clockwise ? x : -x;
+        point.xAxis += spinData.clockwise ? x : -x;
     }
 };
