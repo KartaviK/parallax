@@ -4,15 +4,15 @@ import Point from "../Point";
 export const acceleration: number = 9.80665;
 
 export interface GravityParams extends ListenerParams {
-    targetXAxis: () => number,
-    targetYAxis: (point: Point) => number,
+    targetXAxis: (point?: Point) => number,
+    targetYAxis: (point?: Point) => number,
     time: () => number,
     iteration: () => number
 }
 
 export const Gravity: Listener<Point, GravityParams> = (point: Point, params: GravityParams): void => {
     let {targetXAxis, targetYAxis, time, iteration} = params;
-    let x = targetXAxis();
+    let x = targetXAxis(point);
     let y = targetYAxis(point);
     let t = time();
     let i = iteration();
