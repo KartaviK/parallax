@@ -1,4 +1,6 @@
-language: node
+language: nodejs
+before_script:
+    - npm install
 scripts:
     - npm run cover
 after_success:
