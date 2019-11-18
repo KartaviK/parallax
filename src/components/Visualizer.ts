@@ -1,17 +1,17 @@
 import RenderAble from "../interfaces/RenderAble";
 
 export default class Visualizer {
-
     get Root(): HTMLElement | null {
         return this.dom.getElementById(this.target);
     }
+
+    private dom: Document;
+    private readonly target: string;
 
     constructor(document: Document, target: string = "root") {
         this.dom = document;
         this.target = target;
     }
-    private dom: Document;
-    private readonly target: string;
 
     public Clear(): this {
         this.Root.innerHTML = "";

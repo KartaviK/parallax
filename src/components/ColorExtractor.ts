@@ -20,10 +20,6 @@ export default class ColorExtractor {
         return `${type}(${values.join(", ")})`;
     }
 
-    constructor(random: (min: number, max: number, int: boolean) => number) {
-        this.random = random;
-    }
-
     private default: ColorExtractorParams = {
         blue: {
             max: 255,
@@ -58,6 +54,10 @@ export default class ColorExtractor {
     };
 
     private readonly random: Random;
+
+    constructor(random: (min: number, max: number, int: boolean) => number) {
+        this.random = random;
+    }
 
     public RGB(params: ColorExtractorParams = this.default): string {
         const blue = this.random(params.blue.min, params.blue.max, true);

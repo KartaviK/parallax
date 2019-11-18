@@ -1,7 +1,6 @@
 import RenderAble from "../interfaces/RenderAble";
 
 export default class Point implements RenderAble {
-
     get Color(): string {
         return this.color;
     }
@@ -42,29 +41,29 @@ export default class Point implements RenderAble {
         this.yAxis = value;
     }
 
+    private color: string;
+    private gravitationTime: number = 1;
+    private radius: number;
+    private target: HTMLElement;
+    private xAxis: number;
+    private yAxis: number;
+
     constructor(xAxis: number, yAxis: number, color: string, radius: number) {
         this.xAxis = xAxis;
         this.yAxis = yAxis;
         this.color = color;
         this.radius = radius;
     }
-    private color: string;
-    private gravitationTime: number = 1;
-    private radius: number;
-
-    private target: HTMLElement;
-    private xAxis: number;
-    private yAxis: number;
 
     public ToNode(): HTMLElement {
         const element = document.createElement("span");
+
         element.style.left = `${this.XAxis}px`;
         element.style.top = `${this.YAxis}px`;
         element.style.backgroundColor = this.color;
         element.style.transitionDuration = "0.4s";
         element.style.width = `${this.Radius * 2}px`;
         element.style.height = `${this.Radius * 2}px`;
-
         this.target = element;
 
         return element;

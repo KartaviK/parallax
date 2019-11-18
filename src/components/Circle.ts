@@ -2,7 +2,6 @@ import AbstractFigure from "./AbstractFigure";
 import Point from "./Point";
 
 export default class Circle extends AbstractFigure {
-
     get Radius(): number {
         return this.radius;
     }
@@ -11,12 +10,13 @@ export default class Circle extends AbstractFigure {
         this.radius = value;
     }
 
+    private radius: number;
+
     constructor(radius: number, xAxis: number, yAxis: number) {
         super(xAxis, yAxis);
 
         this.radius = radius;
     }
-    private radius: number;
 
     public IsInside(point: Point): boolean {
         return Math.pow(point.XAxis - this.XAxis, 2)

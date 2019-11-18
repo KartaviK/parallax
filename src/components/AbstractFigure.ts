@@ -2,7 +2,6 @@ import Figure from "../interfaces/Figure";
 import Point from "./Point";
 
 export default abstract class AbstractFigure implements Figure {
-
     protected constructor(xAxis: number, yAxis: number) {
         this.xAxis = xAxis;
         this.yAxis = yAxis;
@@ -23,6 +22,7 @@ export default abstract class AbstractFigure implements Figure {
     set YAxis(value: number) {
         this.yAxis = value;
     }
+
     private xAxis: number;
     private yAxis: number;
 

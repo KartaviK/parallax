@@ -7,10 +7,10 @@ export interface EventList {
 }
 
 export default class Dispatcher {
-
     get EventsList(): string[] {
         return Object.keys(this.Events);
     }
+
     private Events: EventList = {};
 
     public AddListener(event: string, callback: Listener<Point, ListenerParams>): void {

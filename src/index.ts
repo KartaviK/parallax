@@ -13,7 +13,7 @@ const circle = new Component.Circle(
     Math.round(window.innerWidth / 2),
     Math.round(window.innerHeight / 2),
 );
-const b = 123 === undefined;
+
 const colorExtractor = new Component.ColorExtractor(Random.Number);
 const spin = {enable: false, clockwise: true};
 const chaosParams: ChaosParams = {
