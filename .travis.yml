@@ -1,5 +1,15 @@
-language: nodejs
+language: node_js
+node_js:
+    - "6"
+    - "8"
+    - "10"
+
+cache:
+    directories:
+        - "node_modules"
+
 before_script:
+    - ./node_modules/.bin/tslint --project .
     - npm install
 scripts:
     - npm run cover
