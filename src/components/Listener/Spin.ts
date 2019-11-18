@@ -1,15 +1,15 @@
-import {IListener, IListenerParams} from "../../interfaces/IListener";
+import {Listener, ListenerParams} from "../../interfaces/Listener";
 import AbstractFigure from "../AbstractFigure";
 import Point from "../Point";
 
-export interface ISpinParams extends IListenerParams {
-    spin: () => { enable: boolean, clockwise: boolean };
+export interface SpinParams extends ListenerParams {
+    figure: () => AbstractFigure;
     nextX: () => number;
     nextY: () => number;
-    figure: () => AbstractFigure;
+    spin: () => { clockwise: boolean, enable: boolean };
 }
 
-export const Spin: IListener<Point, ISpinParams> = (point: Point, params: ISpinParams): void => {
+export const Spin: Listener<Point, SpinParams> = (point: Point, params: SpinParams): void => {
     const {spin, nextX, nextY, figure} = params;
 
     const x = nextX();

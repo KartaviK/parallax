@@ -1,16 +1,16 @@
-import {IListener, IListenerParams} from "../../interfaces/IListener";
+import {Listener, ListenerParams} from "../../interfaces/Listener";
 import Point from "../Point";
 
 export const acceleration: number = 9.80665;
 
-export interface IGravityParams extends IListenerParams {
+export interface GravityParams extends ListenerParams {
+    iteration: () => number;
     targetXAxis: (point?: Point) => number;
     targetYAxis: (point?: Point) => number;
     time: () => number;
-    iteration: () => number;
 }
 
-export const Gravity: IListener<Point, IGravityParams> = (point: Point, params: IGravityParams): void => {
+export const Gravity: Listener<Point, GravityParams> = (point: Point, params: GravityParams): void => {
     const {targetXAxis, targetYAxis, time, iteration} = params;
     const x = targetXAxis(point);
     const y = targetYAxis(point);
@@ -38,5 +38,5 @@ export const Gravity: IListener<Point, IGravityParams> = (point: Point, params: 
 
     point.XAxis = (point.XAxis + (lambda * x)) / (1 + lambda);
     point.YAxis = (point.YAxis + (lambda * y)) / (1 + lambda);
-    point.GravitationTime++;
+    point.GravitationTime += 1;
 };

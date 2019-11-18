@@ -1,16 +1,16 @@
-import IRenderable from "../interfaces/IRenderable";
+import RenderAble from "../interfaces/RenderAble";
 import Point from "./Point";
 
-export default class Space implements IRenderable {
-    private readonly points: Point[];
-
-    constructor(points: Point[] = []) {
-        this.points = points;
-    }
+export default class Space implements RenderAble {
 
     get Points(): Point[] {
         return this.points;
     }
+
+    constructor(points: Point[] = []) {
+        this.points = points;
+    }
+    private readonly points: Point[];
 
     public Append(point: Point) {
         this.points.push(point);

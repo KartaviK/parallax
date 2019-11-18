@@ -1,17 +1,17 @@
-import IRenderable from "../interfaces/IRenderable";
+import RenderAble from "../interfaces/RenderAble";
 
 export default class Visualizer {
-    private dom: Document;
-    private readonly target: string;
+
+    get Root(): HTMLElement | null {
+        return this.dom.getElementById(this.target);
+    }
 
     constructor(document: Document, target: string = "root") {
         this.dom = document;
         this.target = target;
     }
-
-    get Root(): HTMLElement | null {
-        return this.dom.getElementById(this.target);
-    }
+    private dom: Document;
+    private readonly target: string;
 
     public Clear(): this {
         this.Root.innerHTML = "";
@@ -19,7 +19,7 @@ export default class Visualizer {
         return this;
     }
 
-    public Render<T extends IRenderable>(element: T): HTMLElement {
+    public Render<T extends RenderAble>(element: T): HTMLElement {
         const elementsToRender = element.ToNode();
 
         if (elementsToRender instanceof Array) {
