@@ -1,10 +1,11 @@
-import * as Component from '../';
+import {Listener, ListenerParams} from "../../interfaces/Listener";
+import Point from "../Point";
 
-export interface IRestrainParams extends Component.IListenerParams {
+export interface RestrainParams extends ListenerParams {
     window: () => Window;
 }
 
-export const Restrain: Component.IListener = (point: Component.Point, params: IRestrainParams): void => {
+export const Restrain: Listener<Point, RestrainParams> = (point: Point, params: RestrainParams): void => {
     let {window: wn} = params;
     let target = wn();
 

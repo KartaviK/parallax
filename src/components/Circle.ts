@@ -1,7 +1,7 @@
-import Figure from "./Figure";
+import AbstractFigure from "./AbstractFigure";
 import Point from "./Point";
 
-export default class Circle extends Figure {
+export default class Circle extends AbstractFigure {
     private _radius: number;
 
     constructor(radius: number, xAxis: number, yAxis: number) {

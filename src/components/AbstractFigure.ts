@@ -1,7 +1,7 @@
-import IFigure from "./IFigure";
+import Figure from "../interfaces/Figure";
 import Point from "./Point";
 
-export default abstract class Figure implements IFigure {
+export default abstract class AbstractFigure implements Figure {
     private _xAxis: number;
     private _yAxis: number;
 

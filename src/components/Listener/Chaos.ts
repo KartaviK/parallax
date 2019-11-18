@@ -1,12 +1,14 @@
-import * as Component from '../';
+import {Listener, ListenerParams} from "../../interfaces/Listener";
+import AbstractFigure from "../AbstractFigure";
+import Point from "../Point";
 
-export interface IChaosParams extends Component.IListenerParams {
+export interface IChaosParams extends ListenerParams {
     nextX: () => number;
     nextY: () => number;
-    figure: () => Component.Figure;
+    figure: () => AbstractFigure;
 }
 
-export const Chaos: Component.IListener = (point: Component.Point, params: IChaosParams): void => {
+export const Chaos: Listener<Point, IChaosParams> = (point: Point, params: IChaosParams): void => {
     let {nextX, nextY, figure: entity} = params;
 
     let x = nextX();

@@ -1,11 +1,12 @@
-import Random from "./app/Helper/Random";
-import * as Component from './app/Component';
-import ColorExtractor from "./app/Helper/ColorExtractor";
-import gravity from "./app/Action/gravity";
+import Random from "./components/Random";
+import ColorExtractor from "./components/ColorExtractor";
+import * as Component from './components';
 
 import './styles/main.css';
 import './styles/reset.min.css';
-import {IChaosParams} from "./app/Component/Listener";
+import {IChaosParams, RestrainParams, SpinParams} from "./components/Listener";
+import {ListenerParams} from "./interfaces/Listener";
+import {GravityParams} from "./components/Listener/Gravity";
 
 let randomPointsCount = Math.round(Math.random() * 50);
 let space = new Component.Space();
@@ -22,16 +23,16 @@ let chaosParams: IChaosParams = {
     nextY: () => Math.random() * 75,
     figure: () => circle
 };
-let restrainParams: Component.Listener.IRestrainParams = {
+let restrainParams: RestrainParams = {
     window: () => window,
 };
-let spinParams: Component.Listener.ISpinParams = {
+let spinParams: SpinParams = {
     spin: () => spin,
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
     figure: () => circle,
 };
-let eventParams: { [event: string]: Component.IListenerParams} = {
+let eventParams: { [event: string]: ListenerParams} = {
     chaos: chaosParams,
     restrain: restrainParams,
     spin: spinParams,
@@ -41,6 +42,7 @@ let dispatcher = new Component.Dispatcher();
 dispatcher.addListener('chaos', Component.Listener.Chaos);
 dispatcher.addListener('restrain', Component.Listener.Restrain);
 dispatcher.addListener('spin', Component.Listener.Spin);
+dispatcher.addListener('gravity', Component.Listener.Gravity);
 
 slider.target.oninput = (() => {
     circle.radius = parseInt(slider.value);
@@ -83,8 +85,18 @@ visualizer.render(space);
 
 let updateHandler = () => {
     space.points.forEach(point => {
-        gravity(point, point.xAxis, window.innerHeight - point.radius, point.gravitationTime++);
-        Object.keys(eventParams).forEach(event => dispatcher.dispatch(event, point, eventParams[event]));
+        let gravityParams : GravityParams = {
+            targetXAxis: () => point.xAxis,
+            targetYAxis: (p: Component.Point) => window.innerHeight - p.radius * 2,
+            time: () => point.gravitationTime,
+            iteration: () => 1
+        };
+
+        eventParams['gravity'] = gravityParams;
+
+        for (let event in eventParams) {
+            dispatcher.dispatch(event, point, eventParams[event]);
+        }
 
         point.update();
     });

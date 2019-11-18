@@ -1,13 +1,15 @@
-import * as Component from '../';
+import {Listener, ListenerParams} from "../../interfaces/Listener";
+import AbstractFigure from "../AbstractFigure";
+import Point from "../Point";
 
-export interface ISpinParams extends Component.IListenerParams {
+export interface SpinParams extends ListenerParams {
     spin: () => {enable: boolean, clockwise: boolean};
     nextX: () => number;
     nextY: () => number;
-    figure: () => Component.Figure;
+    figure: () => AbstractFigure;
 }
 
-export const Spin: Component.IListener = (point: Component.Point, params: ISpinParams): void => {
+export const Spin: Listener<Point, SpinParams> = (point: Point, params: SpinParams): void => {
     let {spin, nextX, nextY, figure} = params;
 
     let x = nextX();
