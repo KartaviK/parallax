@@ -1,117 +1,129 @@
-import Random from "./app/Helper/Random";
-import * as Component from './app/Component';
-import ColorExtractor from "./app/Helper/ColorExtractor";
-import gravity from "./app/Action/gravity";
+import * as Component from "./components";
+import ColorExtractor from "./components/ColorExtractor";
+import {IChaosParams, IGravityParams, IRestrainParams, ISpinParams} from "./components/Listener";
+import Random from "./components/Random";
+import {IListenerParams} from "./interfaces/IListener";
+import "./styles/main.css";
+import "./styles/reset.min.css";
 
-import './styles/main.css';
-import './styles/reset.min.css';
-import {IChaosParams} from "./app/Component/Listener";
-
-let randomPointsCount = Math.round(Math.random() * 50);
-let space = new Component.Space();
-let slider = new Component.Slider('radius');
-let circle = new Component.Circle(
+const randomPointsCount = Math.round(Math.random() * 50);
+const space = new Component.Space();
+const slider = new Component.Slider("radius");
+const circle = new Component.Circle(
     100,
     Math.round(window.innerWidth / 2),
-    Math.round(window.innerHeight / 2)
+    Math.round(window.innerHeight / 2),
 );
-let colorExtractor = new ColorExtractor(Random.number);
-let spin = {enable: false, clockwise: true};
-let chaosParams: IChaosParams = {
+const colorExtractor = new ColorExtractor(Random.Number);
+const spin = {enable: false, clockwise: true};
+const chaosParams: IChaosParams = {
+    figure: () => circle,
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
-    figure: () => circle
 };
-let restrainParams: Component.Listener.IRestrainParams = {
+const restrainParams: IRestrainParams = {
     window: () => window,
 };
-let spinParams: Component.Listener.ISpinParams = {
-    spin: () => spin,
+const spinParams: ISpinParams = {
+    figure: () => circle,
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
-    figure: () => circle,
+    spin: () => spin,
 };
-let eventParams: { [event: string]: Component.IListenerParams} = {
+const eventParams: { [event: string]: IListenerParams } = {
     chaos: chaosParams,
     restrain: restrainParams,
     spin: spinParams,
 };
-let dispatcher = new Component.Dispatcher();
+const dispatcher = new Component.Dispatcher();
 
-dispatcher.addListener('chaos', Component.Listener.Chaos);
-dispatcher.addListener('restrain', Component.Listener.Restrain);
-dispatcher.addListener('spin', Component.Listener.Spin);
+dispatcher.AddListener("chaos", Component.Listener.Chaos);
+dispatcher.AddListener("restrain", Component.Listener.Restrain);
+dispatcher.AddListener("spin", Component.Listener.Spin);
+dispatcher.AddListener("gravity", Component.Listener.Gravity);
 
-slider.target.oninput = (() => {
-    circle.radius = parseInt(slider.value);
+slider.Target.oninput = (() => {
+    circle.Radius = parseInt(slider.Value, 10);
 });
 
-document.getElementById('spin').onclick = () => {
+document.getElementById("spin").onclick = () => {
     spin.enable = !spin.enable;
 };
 
-document.getElementById('reverse').onclick = () => {
+document.getElementById("reverse").onclick = () => {
     spin.clockwise = !spin.clockwise;
 };
 
-let chaoticButton = document.getElementById('chaotic');
+const chaoticButton = document.getElementById("chaotic");
 chaoticButton.onclick = () => {
-    let use = chaoticButton.dataset['use'] === '1';
+    const use = chaoticButton.dataset.use === "1";
 
-    chaoticButton.innerText = use ? 'chaotic' : 'static';
-    chaoticButton.dataset['use'] = use ? '0' : '1';
+    chaoticButton.innerText = use ? "chaotic" : "static";
+    chaoticButton.dataset.use = use ? "0" : "1";
 
     if (use) {
-        dispatcher.addListener('chaos', Component.Listener.Chaos);
+        dispatcher.AddListener("chaos", Component.Listener.Chaos);
     } else {
-        dispatcher.removeListener('chaos');
+        dispatcher.RemoveListener("chaos");
     }
 };
 
 for (let i = 0; i < randomPointsCount; i++) {
-    let xAxis = (Math.random() * (window.innerWidth - 20)) + 10;
-    let yAxis = (Math.random() * (window.innerHeight - 20)) + 10;
-    let color = colorExtractor.rgba();
-    let radius = Math.round((Math.random() * 15) + 1);
-    let point = new Component.Point(xAxis, yAxis, color, radius);
+    const xAxis = (Math.random() * (window.innerWidth - 20)) + 10;
+    const yAxis = (Math.random() * (window.innerHeight - 20)) + 10;
+    const color = colorExtractor.RGBA();
+    const radius = Math.round((Math.random() * 15) + 1);
+    const point = new Component.Point(xAxis, yAxis, color, radius);
 
-    space.append(point);
+    space.Append(point);
 }
 
-let visualizer = new Component.Visualizer(document);
-visualizer.render(space);
+const visualizer = new Component.Visualizer(document);
+visualizer.Render(space);
 
-let updateHandler = () => {
-    space.points.forEach(point => {
-        gravity(point, point.xAxis, window.innerHeight - point.radius, point.gravitationTime++);
-        Object.keys(eventParams).forEach(event => dispatcher.dispatch(event, point, eventParams[event]));
+const updateHandler = () => {
+    space.Points.forEach((point: Component.Point) => {
+        const gravityParams: IGravityParams = {
+            iteration: () => 1,
+            targetXAxis: () => point.XAxis,
+            targetYAxis: (p: Component.Point) => window.innerHeight - p.Radius * 2,
+            time: () => point.GravitationTime,
+        };
 
-        point.update();
+        eventParams.gravity = gravityParams;
+
+        for (const event in eventParams) {
+            if (eventParams.hasOwnProperty(event)) {
+                dispatcher.Dispatch(event, point, eventParams[event]);
+            }
+        }
+
+        point.Update();
     });
 };
 
 setInterval(updateHandler, 120);
 
-visualizer.root.onwheel = (e: WheelEvent) => {
-    let value = Math.ceil(parseInt(slider.target.value) + e.deltaY);
+visualizer.Root.onwheel = (e: WheelEvent) => {
+    const value = Math.ceil(parseInt(slider.Target.value, 10) + e.deltaY);
 
-    if (parseInt(slider.target.max) > value && parseInt(slider.target.min) < value) {
-        slider.target.value = `${value}`;
-        circle.radius = value;
+    if (parseInt(slider.Target.max, 10) > value && parseInt(slider.Target.min, 10) < value) {
+        slider.Target.value = `${value}`;
+        circle.Radius = value;
     }
 };
-visualizer.root.onclick = (e: MouseEvent) => {
-    let xAxis = e.clientX;
-    let yAxis = e.clientY;
-    let color = colorExtractor.rgba();
-    let radius = (Math.random() * 10) + 5;
-    let point = new Component.Point(xAxis, yAxis, color, radius);
+visualizer.Root.onclick = (e: MouseEvent) => {
+    const xAxis = e.clientX;
+    const yAxis = e.clientY;
+    const color = colorExtractor.RGBA();
+    const radius = (Math.random() * 10) + 5;
+    const point = new Component.Point(xAxis, yAxis, color, radius);
 
-    space.append(point);
-    visualizer.render(point);
+    space.Append(point);
+    visualizer.Render(point);
 };
 
 window.onmousemove = (e: MouseEvent) => {
-    circle.xAxis = e.clientX;
-    circle.yAxis = e.clientY;
+    circle.XAxis = e.clientX;
+    circle.YAxis = e.clientY;
 };
