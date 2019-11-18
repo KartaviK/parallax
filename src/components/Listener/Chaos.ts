@@ -1,26 +1,26 @@
-import {Listener, ListenerParams} from "../../interfaces/Listener";
+import {IListener, IListenerParams} from "../../interfaces/IListener";
 import AbstractFigure from "../AbstractFigure";
 import Point from "../Point";
 
-export interface IChaosParams extends ListenerParams {
+export interface IChaosParams extends IListenerParams {
     nextX: () => number;
     nextY: () => number;
     figure: () => AbstractFigure;
 }
 
-export const Chaos: Listener<Point, IChaosParams> = (point: Point, params: IChaosParams): void => {
-    let {nextX, nextY, figure: entity} = params;
+export const Chaos: IListener<Point, IChaosParams> = (point: Point, params: IChaosParams): void => {
+    const {nextX, nextY, figure: entity} = params;
 
-    let x = nextX();
-    let y = nextY();
-    let figure = entity();
+    const x = nextX();
+    const y = nextY();
+    const figure = entity();
 
-    if (figure.isInside(point)) {
-        point.yAxis += figure.isUpper(point) ? y : -y;
-        point.xAxis += figure.isOnLeft(point) ? -x : x;
+    if (figure.IsInside(point)) {
+        point.YAxis += figure.IsUpper(point) ? y : -y;
+        point.XAxis += figure.IsOnLeft(point) ? -x : x;
     } else {
-        point.yAxis += figure.isUnder(point) ? y : -y;
-        point.xAxis += figure.isOnRight(point) ? -x : x;
+        point.YAxis += figure.IsUnder(point) ? y : -y;
+        point.XAxis += figure.IsOnRight(point) ? -x : x;
     }
-    point.gravitationTime = 1;
+    point.GravitationTime = 1;
 };

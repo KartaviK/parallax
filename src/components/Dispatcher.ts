@@ -1,36 +1,36 @@
-import {Listener, ListenerParams} from "../interfaces/Listener";
-import Event from "../interfaces/Event";
+import IEvent from "../interfaces/IEvent";
+import {IListener, IListenerParams} from "../interfaces/IListener";
 import Point from "./Point";
 
 export interface IEventList {
-    [key: string]: Event,
+    [key: string]: IEvent;
 }
 
 export default class Dispatcher {
-    private _events: IEventList = {};
+    private Events: IEventList = {};
 
-    get events(): string[] {
-        return Object.keys(this._events);
+    get EventsList(): string[] {
+        return Object.keys(this.Events);
     }
 
-    public removeListener(event: string): void {
-        delete this._events[event];
+    public RemoveListener(event: string): void {
+        delete this.Events[event];
     }
 
-    public addListener(event: string, callback: Listener<Point, ListenerParams>): void {
-        if (!this._events.hasOwnProperty(event)) {
-            this._events[event] = {listeners: []}
+    public AddListener(event: string, callback: IListener<Point, IListenerParams>): void {
+        if (!this.Events.hasOwnProperty(event)) {
+            this.Events[event] = {listeners: []};
         }
 
-        this._events[event].listeners.push(callback);
+        this.Events[event].listeners.push(callback);
     }
 
-    public dispatch(event: string, point: Point, params: ListenerParams): void {
-        if (!this._events.hasOwnProperty(event)) {
+    public Dispatch(event: string, point: Point, params: IListenerParams): void {
+        if (!this.Events.hasOwnProperty(event)) {
             return;
         }
 
-        this._events[event].listeners.forEach((listener: Listener<Point, ListenerParams>) => {
+        this.Events[event].listeners.forEach((listener: IListener<Point, IListenerParams>) => {
             listener(point, params);
         });
     }

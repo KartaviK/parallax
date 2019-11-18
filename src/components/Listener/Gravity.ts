@@ -1,42 +1,42 @@
-import {ListenerParams, Listener} from "../../interfaces/Listener";
+import {IListener, IListenerParams} from "../../interfaces/IListener";
 import Point from "../Point";
 
 export const acceleration: number = 9.80665;
 
-export interface GravityParams extends ListenerParams {
-    targetXAxis: (point?: Point) => number,
-    targetYAxis: (point?: Point) => number,
-    time: () => number,
-    iteration: () => number
+export interface IGravityParams extends IListenerParams {
+    targetXAxis: (point?: Point) => number;
+    targetYAxis: (point?: Point) => number;
+    time: () => number;
+    iteration: () => number;
 }
 
-export const Gravity: Listener<Point, GravityParams> = (point: Point, params: GravityParams): void => {
-    let {targetXAxis, targetYAxis, time, iteration} = params;
-    let x = targetXAxis(point);
-    let y = targetYAxis(point);
-    let t = time();
-    let i = iteration();
+export const Gravity: IListener<Point, IGravityParams> = (point: Point, params: IGravityParams): void => {
+    const {targetXAxis, targetYAxis, time, iteration} = params;
+    const x = targetXAxis(point);
+    const y = targetYAxis(point);
+    const t = time();
+    const i = iteration();
 
-    let targetDistance = Math.sqrt(
-        Math.pow(x - point.xAxis, 2)
-        + Math.pow(y - point.yAxis, 2)
+    const targetDistance = Math.sqrt(
+        Math.pow(x - point.XAxis, 2)
+        + Math.pow(y - point.YAxis, 2),
     );
-    let traveledDistance =
+    const traveledDistance =
         (acceleration * Math.pow(t, 2)) / 2
         - (acceleration * Math.pow(t - i, 2)) / 2;
 
     if (targetDistance - traveledDistance <= 0) {
-        point.xAxis = x;
-        point.yAxis = y;
-        point.gravitationTime = 1;
+        point.XAxis = x;
+        point.YAxis = y;
+        point.GravitationTime = 1;
 
         return;
     }
 
-    let traveledPartRatio = traveledDistance / targetDistance;
-    let lambda = traveledPartRatio / (1 - traveledPartRatio);
+    const traveledPartRatio = traveledDistance / targetDistance;
+    const lambda = traveledPartRatio / (1 - traveledPartRatio);
 
-    point.xAxis = (point.xAxis + (lambda * x)) / (1 + lambda);
-    point.yAxis = (point.yAxis + (lambda * y)) / (1 + lambda);
-    point.gravitationTime++;
+    point.XAxis = (point.XAxis + (lambda * x)) / (1 + lambda);
+    point.YAxis = (point.YAxis + (lambda * y)) / (1 + lambda);
+    point.GravitationTime++;
 };

@@ -11,10 +11,10 @@ describe('Point entity', () => {
 
         point = new Point(x, y, color, radius);
 
-        expect(point.xAxis).toBe(x);
-        expect(point.yAxis).toBe(y);
-        expect(point.color).toBe(color);
-        expect(point.radius).toBe(radius);
+        expect(point.XAxis).toBe(x);
+        expect(point.YAxis).toBe(y);
+        expect(point.Color).toBe(color);
+        expect(point.Radius).toBe(radius);
     });
 
     it('Reset values', () => {

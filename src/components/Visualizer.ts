@@ -1,33 +1,33 @@
-import Renderable from "../interfaces/Renderable";
+import IRenderable from "../interfaces/IRenderable";
 
 export default class Visualizer {
     private dom: Document;
     private readonly target: string;
 
-    constructor(document: Document, target: string = 'root') {
+    constructor(document: Document, target: string = "root") {
         this.dom = document;
         this.target = target;
     }
 
-    get root(): HTMLElement | null {
+    get Root(): HTMLElement | null {
         return this.dom.getElementById(this.target);
     }
 
-    public clear(): this {
-        this.root.innerHTML = '';
+    public Clear(): this {
+        this.Root.innerHTML = "";
 
         return this;
     }
 
-    public render<T extends Renderable>(element: T): HTMLElement {
-        let elementsToRender = element.toNode();
+    public Render<T extends IRenderable>(element: T): HTMLElement {
+        const elementsToRender = element.ToNode();
 
         if (elementsToRender instanceof Array) {
-            this.root.append(...elementsToRender);
+            this.Root.append(...elementsToRender);
         } else {
-            this.root.append(elementsToRender);
+            this.Root.append(elementsToRender);
         }
 
-        return this.root;
+        return this.Root;
     }
 }

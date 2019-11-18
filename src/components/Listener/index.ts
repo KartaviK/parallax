@@ -1,15 +1,15 @@
-import {Chaos, IChaosParams} from './Chaos';
-import {Restrain, RestrainParams} from './Restrain';
-import {Spin, SpinParams} from './Spin';
-import {Gravity, GravityParams} from './Gravity';
+import {Chaos, IChaosParams} from "./Chaos";
+import {Gravity, IGravityParams} from "./Gravity";
+import {IRestrainParams, Restrain} from "./Restrain";
+import {ISpinParams, Spin} from "./Spin";
 
 export {
     Chaos,
     IChaosParams,
     Restrain,
-    RestrainParams,
+    IRestrainParams,
     Spin,
-    SpinParams,
+    ISpinParams,
     Gravity,
-    GravityParams,
-}
+    IGravityParams,
+};

@@ -1,22 +1,22 @@
-import {Listener, ListenerParams} from "../../interfaces/Listener";
+import {IListener, IListenerParams} from "../../interfaces/IListener";
 import Point from "../Point";
 
-export interface RestrainParams extends ListenerParams {
+export interface IRestrainParams extends IListenerParams {
     window: () => Window;
 }
 
-export const Restrain: Listener<Point, RestrainParams> = (point: Point, params: RestrainParams): void => {
-    let {window: wn} = params;
-    let target = wn();
+export const Restrain: IListener<Point, IRestrainParams> = (point: Point, params: IRestrainParams): void => {
+    const {window: wn} = params;
+    const target = wn();
 
-    if (point.xAxis > target.innerWidth - point.radius * 2) {
-        point.xAxis = target.innerWidth - point.radius * 2;
-    } else if (point.xAxis <= point.radius * 2) {
-        point.xAxis = point.radius * 2;
+    if (point.XAxis > target.innerWidth - point.Radius * 2) {
+        point.XAxis = target.innerWidth - point.Radius * 2;
+    } else if (point.XAxis <= point.Radius * 2) {
+        point.XAxis = point.Radius * 2;
     }
-    if (point.yAxis > target.innerHeight - point.radius * 2) {
-        point.yAxis = target.innerHeight - point.radius * 2;
-    } else if (point.yAxis <= point.radius * 2) {
-        point.yAxis = point.radius * 2;
+    if (point.YAxis > target.innerHeight - point.Radius * 2) {
+        point.YAxis = target.innerHeight - point.Radius * 2;
+    } else if (point.YAxis <= point.Radius * 2) {
+        point.YAxis = point.Radius * 2;
     }
 };
