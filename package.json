@@ -8,7 +8,8 @@
         "start": "webpack-dev-server --colors --hot --inline --progress --config \"./webpack.config.js\"",
         "build": "webpack --mode production",
         "test": "jest",
-        "cover": "jest --coverage"
+        "cover": "jest --coverage",
+        "lint": "tslint --project ."
     },
     "author": "Roman Varkuta <roman.varkuta@gmail.com>",
     "license": "ISC",
