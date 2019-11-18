@@ -6,9 +6,11 @@ import Point from "./Point";
 import Slider from "./Slider";
 import Space from "./Space";
 import Visualizer from "./Visualizer";
+import ColorExtractor from "./ColorExtractor";
 
 export {
     Circle,
+    ColorExtractor,
     Dispatcher,
     AbstractFigure,
     Listener,
