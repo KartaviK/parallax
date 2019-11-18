@@ -1,7 +1,7 @@
 {
     "name": "parallax",
     "version": "1.0.0",
-    "description": "",
+    "description": "Simple parallax and physics example",
     "main": "src/index.ts",
     "scripts": {
         "check-types": "tsc",
@@ -49,6 +49,10 @@
                 }
             ]
         ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/KartaviK/parallax.git",
     },
     "dependencies": {
         "@babel/polyfill": "^7.7.0",
