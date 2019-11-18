@@ -2,41 +2,41 @@ import AbstractFigure from "./AbstractFigure";
 import Point from "./Point";
 
 export default class Circle extends AbstractFigure {
-    private _radius: number;
+    private radius: number;
 
     constructor(radius: number, xAxis: number, yAxis: number) {
         super(xAxis, yAxis);
 
-        this._radius = radius;
+        this.radius = radius;
     }
 
-    get radius(): number {
-        return this._radius;
+    get Radius(): number {
+        return this.radius;
     }
 
-    set radius(value: number) {
-        this._radius = value;
+    set Radius(value: number) {
+        this.radius = value;
     }
 
-    isInside(point: Point): boolean {
-        return Math.pow(point.xAxis - this.xAxis, 2)
-            + Math.pow(point.yAxis - this.yAxis, 2)
-            - Math.pow(this.radius, 2) <= 0;
+    public IsInside(point: Point): boolean {
+        return Math.pow(point.XAxis - this.XAxis, 2)
+            + Math.pow(point.YAxis - this.YAxis, 2)
+            - Math.pow(this.Radius, 2) <= 0;
     }
 
-    isUnder(point: Point): boolean {
-        return point.yAxis <= this.yAxis;
+    public IsUnder(point: Point): boolean {
+        return point.YAxis <= this.YAxis;
     }
 
-    isUpper(point: Point): boolean {
-        return point.yAxis >= this.yAxis;
+    public IsUpper(point: Point): boolean {
+        return point.YAxis >= this.YAxis;
     }
 
-    isOnRight(point: Point): boolean {
-        return point.xAxis >= this.xAxis;
+    public IsOnRight(point: Point): boolean {
+        return point.XAxis >= this.XAxis;
     }
 
-    isOnLeft(point: Point): boolean {
-        return point.xAxis <= this.xAxis;
+    public IsOnLeft(point: Point): boolean {
+        return point.XAxis <= this.XAxis;
     }
 }

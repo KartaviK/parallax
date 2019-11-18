@@ -1,21 +1,21 @@
 export default class Slider {
-    private readonly _target: HTMLInputElement;
+    private readonly target: HTMLInputElement;
 
     constructor(target: string) {
-        let input = document.getElementById(target);
+        const input = document.getElementById(target);
 
-        if (input instanceof HTMLInputElement && input.type === 'range') {
-            this._target = input;
+        if (input instanceof HTMLInputElement && input.type === "range") {
+            this.target = input;
         } else {
-            throw new Error('Given target must be exist input element');
+            throw new Error("Given target must be exist input element");
         }
     }
 
-    get target(): HTMLInputElement {
-        return this._target;
+    get Target(): HTMLInputElement {
+        return this.target;
     }
 
-    get value(): string {
-        return this._target.value;
+    get Value(): string {
+        return this.target.value;
     }
 }

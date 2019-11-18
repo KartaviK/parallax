@@ -1,77 +1,77 @@
-import Renderable from "../interfaces/Renderable";
+import IRenderable from "../interfaces/IRenderable";
 
-export default class Point implements Renderable {
-    private _xAxis: number;
-    private _yAxis: number;
-    private _color: string;
-    private _radius: number;
-    private _gravitationTime: number = 1;
+export default class Point implements IRenderable {
+    private xAxis: number;
+    private yAxis: number;
+    private color: string;
+    private radius: number;
+    private gravitationTime: number = 1;
 
     private target: HTMLElement;
 
     constructor(xAxis: number, yAxis: number, color: string, radius: number) {
-        this._xAxis = xAxis;
-        this._yAxis = yAxis;
-        this._color = color;
-        this._radius = radius;
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
+        this.color = color;
+        this.radius = radius;
     }
 
-    get xAxis(): number {
-        return this._xAxis;
+    get XAxis(): number {
+        return this.xAxis;
     }
 
-    get yAxis(): number {
-        return this._yAxis;
+    set XAxis(value: number) {
+        this.xAxis = value;
     }
 
-    get color(): string {
-        return this._color;
+    get YAxis(): number {
+        return this.yAxis;
     }
 
-    set xAxis(value: number) {
-        this._xAxis = value;
+    set YAxis(value: number) {
+        this.yAxis = value;
     }
 
-    set yAxis(value: number) {
-        this._yAxis = value;
+    get Color(): string {
+        return this.color;
     }
 
-    set color(value: string) {
-        this._color = value;
+    set Color(value: string) {
+        this.color = value;
     }
 
-    get radius(): number {
-        return this._radius;
+    get Radius(): number {
+        return this.radius;
     }
 
-    set radius(value: number) {
-        this._radius = value;
+    set Radius(value: number) {
+        this.radius = value;
     }
 
-    get gravitationTime(): number {
-        return this._gravitationTime;
+    get GravitationTime(): number {
+        return this.gravitationTime;
     }
 
-    set gravitationTime(value: number) {
-        this._gravitationTime = value;
+    set GravitationTime(value: number) {
+        this.gravitationTime = value;
     }
 
-    public update(): void {
-        this.target.style.left = `${this.xAxis}px`;
-        this.target.style.top = `${this.yAxis}px`;
+    public Update(): void {
+        this.target.style.left = `${this.XAxis}px`;
+        this.target.style.top = `${this.YAxis}px`;
     }
 
-    public toNode(): HTMLElement {
-        let element = document.createElement('span');
-        element.style.left = `${this.xAxis}px`;
-        element.style.top = `${this.yAxis}px`;
-        element.style.backgroundColor = this._color;
-        element.style.transitionDuration = '0.4s';
-        element.style.width = `${this.radius * 2}px`;
-        element.style.height = `${this.radius * 2}px`;
+    public ToNode(): HTMLElement {
+        const element = document.createElement("span");
+        element.style.left = `${this.XAxis}px`;
+        element.style.top = `${this.YAxis}px`;
+        element.style.backgroundColor = this.color;
+        element.style.transitionDuration = "0.4s";
+        element.style.width = `${this.Radius * 2}px`;
+        element.style.height = `${this.Radius * 2}px`;
 
         this.target = element;
 
-        return element
+        return element;
     }
 }

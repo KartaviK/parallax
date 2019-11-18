@@ -1,36 +1,36 @@
-import {Listener, ListenerParams} from "../../interfaces/Listener";
+import {IListener, IListenerParams} from "../../interfaces/IListener";
 import AbstractFigure from "../AbstractFigure";
 import Point from "../Point";
 
-export interface SpinParams extends ListenerParams {
-    spin: () => {enable: boolean, clockwise: boolean};
+export interface ISpinParams extends IListenerParams {
+    spin: () => { enable: boolean, clockwise: boolean };
     nextX: () => number;
     nextY: () => number;
     figure: () => AbstractFigure;
 }
 
-export const Spin: Listener<Point, SpinParams> = (point: Point, params: SpinParams): void => {
-    let {spin, nextX, nextY, figure} = params;
+export const Spin: IListener<Point, ISpinParams> = (point: Point, params: ISpinParams): void => {
+    const {spin, nextX, nextY, figure} = params;
 
-    let x = nextX();
-    let y = nextY();
-    let target = figure();
-    let spinData = spin();
+    const x = nextX();
+    const y = nextY();
+    const target = figure();
+    const spinData = spin();
 
     if (!spinData.enable) {
         return;
     }
 
-    if (target.isOnRight(point) && target.isUnder(point)) {
-        point.yAxis += spinData.clockwise ? y : -y;
+    if (target.IsOnRight(point) && target.IsUnder(point)) {
+        point.YAxis += spinData.clockwise ? y : -y;
     }
-    if (target.isOnRight(point) && target.isUpper(point)) {
-        point.xAxis -= spinData.clockwise ? x : -x;
+    if (target.IsOnRight(point) && target.IsUpper(point)) {
+        point.XAxis -= spinData.clockwise ? x : -x;
     }
-    if (target.isOnLeft(point) && target.isUpper(point)) {
-        point.yAxis -= spinData.clockwise ? y : -y;
+    if (target.IsOnLeft(point) && target.IsUpper(point)) {
+        point.YAxis -= spinData.clockwise ? y : -y;
     }
-    if (target.isOnLeft(point) && target.isUnder(point)) {
-        point.xAxis += spinData.clockwise ? x : -x;
+    if (target.IsOnLeft(point) && target.IsUnder(point)) {
+        point.XAxis += spinData.clockwise ? x : -x;
     }
 };
