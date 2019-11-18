@@ -1,19 +1,29 @@
-import IRenderable from "../interfaces/IRenderable";
+import RenderAble from "../interfaces/RenderAble";
 
-export default class Point implements IRenderable {
-    private xAxis: number;
-    private yAxis: number;
-    private color: string;
-    private radius: number;
-    private gravitationTime: number = 1;
+export default class Point implements RenderAble {
 
-    private target: HTMLElement;
+    get Color(): string {
+        return this.color;
+    }
 
-    constructor(xAxis: number, yAxis: number, color: string, radius: number) {
-        this.xAxis = xAxis;
-        this.yAxis = yAxis;
-        this.color = color;
-        this.radius = radius;
+    set Color(value: string) {
+        this.color = value;
+    }
+
+    get GravitationTime(): number {
+        return this.gravitationTime;
+    }
+
+    set GravitationTime(value: number) {
+        this.gravitationTime = value;
+    }
+
+    get Radius(): number {
+        return this.radius;
+    }
+
+    set Radius(value: number) {
+        this.radius = value;
     }
 
     get XAxis(): number {
@@ -32,34 +42,19 @@ export default class Point implements IRenderable {
         this.yAxis = value;
     }
 
-    get Color(): string {
-        return this.color;
+    constructor(xAxis: number, yAxis: number, color: string, radius: number) {
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
+        this.color = color;
+        this.radius = radius;
     }
+    private color: string;
+    private gravitationTime: number = 1;
+    private radius: number;
 
-    set Color(value: string) {
-        this.color = value;
-    }
-
-    get Radius(): number {
-        return this.radius;
-    }
-
-    set Radius(value: number) {
-        this.radius = value;
-    }
-
-    get GravitationTime(): number {
-        return this.gravitationTime;
-    }
-
-    set GravitationTime(value: number) {
-        this.gravitationTime = value;
-    }
-
-    public Update(): void {
-        this.target.style.left = `${this.XAxis}px`;
-        this.target.style.top = `${this.YAxis}px`;
-    }
+    private target: HTMLElement;
+    private xAxis: number;
+    private yAxis: number;
 
     public ToNode(): HTMLElement {
         const element = document.createElement("span");
@@ -73,5 +68,10 @@ export default class Point implements IRenderable {
         this.target = element;
 
         return element;
+    }
+
+    public Update(): void {
+        this.target.style.left = `${this.XAxis}px`;
+        this.target.style.top = `${this.YAxis}px`;
     }
 }

@@ -1,5 +1,12 @@
 export default class Slider {
-    private readonly target: HTMLInputElement;
+
+    get Target(): HTMLInputElement {
+        return this.target;
+    }
+
+    get Value(): string {
+        return this.target.value;
+    }
 
     constructor(target: string) {
         const input = document.getElementById(target);
@@ -10,12 +17,5 @@ export default class Slider {
             throw new Error("Given target must be exist input element");
         }
     }
-
-    get Target(): HTMLInputElement {
-        return this.target;
-    }
-
-    get Value(): string {
-        return this.target.value;
-    }
+    private readonly target: HTMLInputElement;
 }

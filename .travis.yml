@@ -9,7 +9,7 @@ cache:
         - "node_modules"
 
 before_script:
-    - ./node_modules/.bin/tslint --project .
+    - npm run lint
     - npm install
 scripts:
     - npm run cover

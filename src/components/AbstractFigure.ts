@@ -1,9 +1,7 @@
-import IFigure from "../interfaces/IFigure";
+import Figure from "../interfaces/Figure";
 import Point from "./Point";
 
-export default abstract class AbstractFigure implements IFigure {
-    private xAxis: number;
-    private yAxis: number;
+export default abstract class AbstractFigure implements Figure {
 
     protected constructor(xAxis: number, yAxis: number) {
         this.xAxis = xAxis;
@@ -25,14 +23,16 @@ export default abstract class AbstractFigure implements IFigure {
     set YAxis(value: number) {
         this.yAxis = value;
     }
+    private xAxis: number;
+    private yAxis: number;
 
     public abstract IsInside(point: Point): boolean;
-
-    public abstract IsUnder(point: Point): boolean;
-
-    public abstract IsUpper(point: Point): boolean;
 
     public abstract IsOnLeft(point: Point): boolean;
 
     public abstract IsOnRight(point: Point): boolean;
+
+    public abstract IsUnder(point: Point): boolean;
+
+    public abstract IsUpper(point: Point): boolean;
 }

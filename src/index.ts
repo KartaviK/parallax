@@ -1,8 +1,7 @@
 import * as Component from "./components";
-import ColorExtractor from "./components/ColorExtractor";
-import {IChaosParams, IGravityParams, IRestrainParams, ISpinParams} from "./components/Listener";
+import {ChaosParams, GravityParams, RestrainParams, SpinParams} from "./components/Listener";
 import Random from "./components/Random";
-import {IListenerParams} from "./interfaces/IListener";
+import {ListenerParams} from "./interfaces/Listener";
 import "./styles/main.css";
 import "./styles/reset.min.css";
 
@@ -14,23 +13,24 @@ const circle = new Component.Circle(
     Math.round(window.innerWidth / 2),
     Math.round(window.innerHeight / 2),
 );
-const colorExtractor = new ColorExtractor(Random.Number);
+const b = 123 === undefined;
+const colorExtractor = new Component.ColorExtractor(Random.Number);
 const spin = {enable: false, clockwise: true};
-const chaosParams: IChaosParams = {
+const chaosParams: ChaosParams = {
     figure: () => circle,
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
 };
-const restrainParams: IRestrainParams = {
+const restrainParams: RestrainParams = {
     window: () => window,
 };
-const spinParams: ISpinParams = {
+const spinParams: SpinParams = {
     figure: () => circle,
     nextX: () => Math.random() * 75,
     nextY: () => Math.random() * 75,
     spin: () => spin,
 };
-const eventParams: { [event: string]: IListenerParams } = {
+const eventParams: { [event: string]: ListenerParams } = {
     chaos: chaosParams,
     restrain: restrainParams,
     spin: spinParams,
@@ -83,7 +83,7 @@ visualizer.Render(space);
 
 const updateHandler = () => {
     space.Points.forEach((point: Component.Point) => {
-        const gravityParams: IGravityParams = {
+        const gravityParams: GravityParams = {
             iteration: () => 1,
             targetXAxis: () => point.XAxis,
             targetYAxis: (p: Component.Point) => window.innerHeight - p.Radius * 2,
