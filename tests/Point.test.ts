@@ -1,7 +1,7 @@
 import Point from '../src/components/Point';
 
 describe('Point entity', () => {
-    let point;
+    let point: Point;
 
     it('Create new', () => {
         const x = 100;
@@ -23,14 +23,14 @@ describe('Point entity', () => {
         const nextColor = 'blue';
         const radius = 15;
 
-        point.xAxis = nextX;
-        point.yAxis = nextY;
-        point.color = nextColor;
-        point.radius = radius;
+        point.XAxis = nextX;
+        point.YAxis = nextY;
+        point.Color = nextColor;
+        point.Radius = radius;
 
-        expect(point.xAxis).toBe(nextX);
-        expect(point.yAxis).toBe(nextY);
-        expect(point.color).toBe(nextColor);
-        expect(point.radius).toBe(radius);
+        expect(point.XAxis).toBe(nextX);
+        expect(point.YAxis).toBe(nextY);
+        expect(point.Color).toBe(nextColor);
+        expect(point.Radius).toBe(radius);
     })
 });
