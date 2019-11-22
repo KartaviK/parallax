@@ -1,4 +1,5 @@
-export type Random = (min: number, max: number, int: boolean) => number;
+import randomInt from "random-int";
+import randomFloat from "random-float";
 
 export interface NumberInterval {
     max?: number;
@@ -18,10 +19,6 @@ export interface AlphaColorExtractorParams extends ColorExtractorParams {
 export default class ColorExtractor {
     protected static wrap(type: string, values: number[]) {
         return `${type}(${values.join(", ")})`;
-    }
-
-    constructor(random: (min: number, max: number, int: boolean) => number) {
-        this.random = random;
     }
 
     private default: ColorExtractorParams = {
@@ -57,21 +54,19 @@ export default class ColorExtractor {
         },
     };
 
-    private readonly random: Random;
-
     public RGB(params: ColorExtractorParams = this.default): string {
-        const blue = this.random(params.blue.min, params.blue.max, true);
-        const green = this.random(params.green.min, params.green.max, true);
-        const red = this.random(params.red.min, params.red.max, true);
+        const blue = randomInt(params.blue.min, params.blue.max);
+        const green = randomInt(params.green.min, params.green.max);
+        const red = randomInt(params.red.min, params.red.max);
 
         return ColorExtractor.wrap("rgb", [red, green, blue]);
     }
 
     public RGBA(params: AlphaColorExtractorParams = this.defaultAlpha): string {
-        const alpha = parseFloat(this.random(params.alpha.min, params.alpha.max, false).toFixed(2));
-        const blue = this.random(params.blue.min, params.blue.max, true);
-        const green = this.random(params.green.min, params.green.max, true);
-        const red = this.random(params.red.min, params.red.max, true);
+        const alpha = parseFloat(randomFloat(params.alpha.min, params.alpha.max).toFixed(2));
+        const blue = randomInt(params.blue.min, params.blue.max);
+        const green = randomInt(params.green.min, params.green.max);
+        const red = randomInt(params.red.min, params.red.max);
 
         return ColorExtractor.wrap("rgba", [red, green, blue, alpha]);
     }

@@ -1,6 +1,5 @@
 import * as Component from "./components";
 import {ChaosParams, GravityParams, RestrainParams, SpinParams} from "./components/Listener";
-import Random from "./components/Random";
 import {ListenerParams} from "./interfaces/Listener";
 import "./styles/main.css";
 import "./styles/reset.min.css";
@@ -14,7 +13,7 @@ const circle = new Component.Circle(
     Math.round(window.innerHeight / 2),
 );
 const b = 123 === undefined;
-const colorExtractor = new Component.ColorExtractor(Random.Number);
+const colorExtractor = new Component.ColorExtractor();
 const spin = {enable: false, clockwise: true};
 const chaosParams: ChaosParams = {
     figure: () => circle,
