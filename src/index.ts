@@ -1,11 +1,12 @@
 import * as Component from "./components";
 import {ChaosParams, GravityParams, RestrainParams, SpinParams} from "./components/Listener";
-import Random from "./components/Random";
 import {ListenerParams} from "./interfaces/Listener";
 import "./styles/main.css";
 import "./styles/reset.min.css";
+import Color from "color";
+import randomInt from "random-int";
 
-const randomPointsCount = Math.round(Math.random() * 50);
+const randomPointsCount = randomInt(50);
 const space = new Component.Space();
 const slider = new Component.Slider("radius");
 const circle = new Component.Circle(
@@ -13,21 +14,20 @@ const circle = new Component.Circle(
     Math.round(window.innerWidth / 2),
     Math.round(window.innerHeight / 2),
 );
-const b = 123 === undefined;
-const colorExtractor = new Component.ColorExtractor(Random.Number);
+
 const spin = {enable: false, clockwise: true};
 const chaosParams: ChaosParams = {
     figure: () => circle,
-    nextX: () => Math.random() * 75,
-    nextY: () => Math.random() * 75,
+    nextX: () => randomInt(75),
+    nextY: () => randomInt(75),
 };
 const restrainParams: RestrainParams = {
     window: () => window,
 };
 const spinParams: SpinParams = {
     figure: () => circle,
-    nextX: () => Math.random() * 75,
-    nextY: () => Math.random() * 75,
+    nextX: () => randomInt(75),
+    nextY: () => randomInt(75),
     spin: () => spin,
 };
 const eventParams: { [event: string]: ListenerParams } = {
@@ -69,10 +69,10 @@ chaoticButton.onclick = () => {
 };
 
 for (let i = 0; i < randomPointsCount; i++) {
-    const xAxis = (Math.random() * (window.innerWidth - 20)) + 10;
-    const yAxis = (Math.random() * (window.innerHeight - 20)) + 10;
-    const color = colorExtractor.RGBA();
-    const radius = Math.round((Math.random() * 15) + 1);
+    const xAxis = randomInt(10, window.innerWidth - 20);
+    const yAxis = randomInt(10, window.innerHeight - 20);
+    const color = Color.rgb([randomInt(255), randomInt(255), randomInt(255)]).string();
+    const radius = randomInt(1, 15);
     const point = new Component.Point(xAxis, yAxis, color, radius);
 
     space.Append(point);
@@ -83,14 +83,12 @@ visualizer.Render(space);
 
 const updateHandler = () => {
     space.Points.forEach((point: Component.Point) => {
-        const gravityParams: GravityParams = {
+        eventParams.gravity = <GravityParams>{
             iteration: () => 1,
             targetXAxis: () => point.XAxis,
             targetYAxis: (p: Component.Point) => window.innerHeight - p.Radius * 2,
             time: () => point.GravitationTime,
         };
-
-        eventParams.gravity = gravityParams;
 
         for (const event in eventParams) {
             if (eventParams.hasOwnProperty(event)) {
@@ -115,8 +113,8 @@ visualizer.Root.onwheel = (e: WheelEvent) => {
 visualizer.Root.onclick = (e: MouseEvent) => {
     const xAxis = e.clientX;
     const yAxis = e.clientY;
-    const color = colorExtractor.RGBA();
-    const radius = (Math.random() * 10) + 5;
+    const color = Color.rgb([randomInt(255), randomInt(255), randomInt(255)]).string();
+    const radius = randomInt(5, 10);
     const point = new Component.Point(xAxis, yAxis, color, radius);
 
     space.Append(point);

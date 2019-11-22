@@ -20,6 +20,7 @@
         "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
         "@babel/preset-env": "^7.7.1",
         "@babel/preset-typescript": "^7.7.2",
+        "@types/color": "^3.0.0",
         "@types/jest": "^24.0.23",
         "@types/node": "^12.12.6",
         "awesome-typescript-loader": "^5.2.1",
@@ -73,6 +74,8 @@
     },
     "dependencies": {
         "@babel/polyfill": "^7.7.0",
+        "color": "^3.1.2",
+        "random-int": "^2.0.1",
         "require": "^2.4.20"
     }
 }
