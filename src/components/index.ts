@@ -1,6 +1,5 @@
 import AbstractFigure from "./AbstractFigure";
 import Circle from "./Circle";
-import ColorExtractor from "./ColorExtractor";
 import Dispatcher from "./Dispatcher";
 import * as Listener from "./Listener";
 import Point from "./Point";
@@ -10,7 +9,6 @@ import Visualizer from "./Visualizer";
 
 export {
     Circle,
-    ColorExtractor,
     Dispatcher,
     AbstractFigure,
     Listener,
